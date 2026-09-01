@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Entropia Viva — Telão</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-publico">
+  <main class="publico-main">
+    <header class="publico-header">
+      <span aria-hidden="true">⚛</span>
+      <h1>A Entropia Viva</h1>
+    </header>
+    <div id="medidores-container" class="medidores-grid medidores-publico"></div>
+  </main>
+
+  <div id="modal-overlay" class="modal-overlay" hidden>
+    <div class="modal modal-publico" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <div id="modal-conteudo"></div>
+      <button type="button" id="modal-fechar" class="btn btn-primary modal-btn-fechar">Fechar</button>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/medidores.js"></script>
+  <script>initMedidores('publico');</script>
+</body>
+</html>

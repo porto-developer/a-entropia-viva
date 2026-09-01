@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Entropia Viva — Login do Mestre</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-login">
+  <main class="login-container">
+    <div class="login-card">
+      <div class="login-brand">
+        <span class="brand-icon" aria-hidden="true">⚛</span>
+        <h1>A Entropia Viva</h1>
+        <p class="subtitle">Painel do Mestre</p>
+      </div>
+      <form id="login-form" class="login-form">
+        <label for="senha">Senha do mestre</label>
+        <input type="password" id="senha" name="senha" autocomplete="current-password" required placeholder="Digite a senha">
+        <p id="login-erro" class="form-erro" hidden role="alert"></p>
+        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+      </form>
+      <p class="login-footer">
+        <a href="publico.html">Abrir tela pública (telão)</a>
+      </p>
+    </div>
+  </main>
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script>initLogin();</script>
+</body>
+</html>

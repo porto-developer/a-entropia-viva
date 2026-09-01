@@ -1,0 +1,50 @@
+[
+  {
+    "id": "desastre-01",
+    "nome": "Derretimento do Manto",
+    "descricao": "O permafrost cede. Gelo ancestral se liquefaz e expõe camadas que deveriam permanecer seladas. O ar fica denso, metálico.",
+    "icone": "🧊",
+    "area": "gelo",
+    "efeito": "Avance +1 no Colapso. O grupo sofre frio extremo: testes físicos neste turno com desvantagem."
+  },
+  {
+    "id": "desastre-02",
+    "nome": "Maré Ácida",
+    "descricao": "A linha d'água sobe com um cheiro de vinagre e ferrugem. Conchas se dissolvem na areia. O pH da costa despencou.",
+    "icone": "🌊",
+    "area": "litoranea",
+    "efeito": "Avance +1 no Colapso. Equipamentos metálicos corroem: um item do grupo fica inutilizável até ser restaurado."
+  },
+  {
+    "id": "desastre-03",
+    "nome": "Silêncio das Folhas",
+    "descricao": "Os insetos param. As árvores perdem o verde de dentro para fora. Um fungo luminoso toma o sub-bosque em horas.",
+    "icone": "🍄",
+    "area": "mata",
+    "efeito": "Avance +1 no Colapso. Visibilidade reduzida na mata. Qualquer Procurar nesta área exige um teste extra."
+  },
+  {
+    "id": "desastre-04",
+    "nome": "Tempestade de Sal",
+    "descricao": "O vento arrasta cristais do solo ressecado. A pele arde. Circuitos e pulmões sofrem igualmente.",
+    "icone": "🏜️",
+    "area": "seca",
+    "efeito": "Avance +1 no Colapso. Ninguém pode descansar neste turno. Água consumida não recupera esforço."
+  },
+  {
+    "id": "desastre-05",
+    "nome": "Apagão Entálpico",
+    "descricao": "A rede da cidade oscila. Lâmpadas estouram em sequência. O calor residual dos transformadores sobe como neblina.",
+    "icone": "⚡",
+    "area": "cidade",
+    "efeito": "Avance +1 no Colapso. Comunicação e iluminação urbanas falham até o fim da cena."
+  },
+  {
+    "id": "desastre-06",
+    "nome": "Ressonância do Cofre",
+    "descricao": "Um zumbido grave atravessa todos os biomas ao mesmo tempo. Vidro treme. Animais fogem numa só direção.",
+    "icone": "📡",
+    "area": "cidade",
+    "efeito": "Avance +1 na Proximidade do Cofre e +1 no Colapso. O mestre revela uma pista obrigatória."
+  }
+]

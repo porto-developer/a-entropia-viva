@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Entropia Viva — Painel do Mestre</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-admin">
+  <header class="site-header">
+    <div class="header-brand">
+      <span aria-hidden="true">⚛</span>
+      <h1>A Entropia Viva</h1>
+      <span class="badge badge-mestre">Mestre</span>
+    </div>
+    <nav class="header-nav">
+      <a href="admin.html" class="nav-link active">Painel</a>
+      <a href="publico.html" target="_blank" rel="noopener" class="nav-link">Tela pública</a>
+      <button type="button" id="btn-som" class="btn btn-ghost btn-sm" title="Ligar/desligar sons">🔊 Som</button>
+      <button type="button" id="btn-logout" class="btn btn-ghost btn-sm">Sair</button>
+    </nav>
+  </header>
+
+  <main class="admin-main">
+    <!-- Medidores -->
+    <section class="panel" aria-labelledby="titulo-medidores">
+      <h2 id="titulo-medidores">Medidores</h2>
+      <div id="medidores-container" class="medidores-grid"></div>
+    </section>
+
+    <!-- Exportar / Importar -->
+    <section class="panel panel-compact" aria-labelledby="titulo-backup">
+      <h2 id="titulo-backup">Backup da sessão</h2>
+      <div class="backup-actions">
+        <button type="button" id="btn-exportar" class="btn btn-secondary">Exportar estado (.json)</button>
+        <label class="btn btn-secondary btn-file">
+          Importar estado
+          <input type="file" id="input-importar" accept=".json,application/json" hidden>
+        </label>
+      </div>
+      <p id="importar-feedback" class="feedback" hidden role="status"></p>
+    </section>
+
+    <!-- Log -->
+    <section class="panel" aria-labelledby="titulo-log">
+      <div class="panel-header-row">
+        <h2 id="titulo-log">Log de ações</h2>
+        <button type="button" id="btn-limpar-log" class="btn btn-ghost btn-sm">Limpar log</button>
+      </div>
+      <ul id="log-lista" class="log-lista"></ul>
+      <p id="log-vazio" class="empty-state">Nenhuma ação registrada ainda.</p>
+    </section>
+
+    <!-- Cartas de Desastre -->
+    <section class="panel" aria-labelledby="titulo-desastre">
+      <h2 id="titulo-desastre">Cartas de Desastre</h2>
+      <div class="cartas-filtros" id="filtros-desastre">
+        <input type="search" id="busca-desastre" placeholder="Buscar por nome..." aria-label="Buscar cartas de desastre">
+        <select id="filtro-area-desastre" aria-label="Filtrar por bioma"></select>
+      </div>
+      <div id="grid-desastre" class="cartas-grid"></div>
+      <p id="empty-desastre" class="empty-state" hidden>Nenhuma carta de desastre cadastrada.</p>
+      <p id="erro-desastre" class="form-erro" hidden></p>
+    </section>
+
+    <!-- Cartas de Procurar -->
+    <section class="panel" aria-labelledby="titulo-procurar">
+      <h2 id="titulo-procurar">Cartas de Procurar</h2>
+      <div class="cartas-filtros" id="filtros-procurar">
+        <input type="search" id="busca-procurar" placeholder="Buscar por nome..." aria-label="Buscar cartas de procurar">
+        <select id="filtro-area-procurar" aria-label="Filtrar por bioma"></select>
+        <select id="filtro-tipo-procurar" aria-label="Filtrar por tipo"></select>
+      </div>
+      <div id="grid-procurar" class="cartas-grid"></div>
+      <p id="empty-procurar" class="empty-state" hidden>Nenhuma carta de procurar cadastrada.</p>
+      <p id="erro-procurar" class="form-erro" hidden></p>
+    </section>
+  </main>
+
+  <!-- Modal genérico -->
+  <div id="modal-overlay" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <div id="modal-conteudo"></div>
+      <button type="button" id="modal-fechar" class="btn btn-primary modal-btn-fechar">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Modal de confirmação -->
+  <div id="confirm-overlay" class="modal-overlay" hidden>
+    <div class="modal modal-confirm" role="dialog" aria-modal="true" aria-labelledby="confirm-titulo">
+      <h3 id="confirm-titulo">Confirmar</h3>
+      <p id="confirm-mensagem"></p>
+      <div class="modal-actions">
+        <button type="button" id="confirm-cancelar" class="btn btn-ghost">Cancelar</button>
+        <button type="button" id="confirm-ok" class="btn btn-danger">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Áudios -->
+  <audio id="audio-colapso" preload="auto">
+    <source src="assets/sons/colapso.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audio-cofre" preload="auto">
+    <source src="assets/sons/cofre.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/log.js"></script>
+  <script src="js/sons.js"></script>
+  <script src="js/medidores.js"></script>
+  <script src="js/cartas.js"></script>
+  <script src="js/exportar-importar.js"></script>
+  <script>
+    if (protegerAdmin()) {
+      initLogout();
+      initMedidores('admin');
+      initCartas();
+      initLog();
+      initExportImport();
+      initSons();
+    }
+  </script>
+</body>
+</html>

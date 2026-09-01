@@ -1,0 +1,56 @@
+[
+  {
+    "id": "procurar-01",
+    "nome": "Núcleo de Gelo Negro",
+    "descricao": "Uma amostra cristalina com bolhas de ar de milênios. Dentro, um fragmento de metal que não deveria existir naquela camada.",
+    "icone": "💎",
+    "area": "gelo",
+    "tipo": "pista",
+    "efeito": "Avance +1 na Proximidade do Cofre. O grupo pode identificar a origem do metal com um teste de Química."
+  },
+  {
+    "id": "procurar-02",
+    "nome": "Diário Encharcado",
+    "descricao": "Páginas de um oceanógrafo. A última anotação: 'O cofre não está no mar. O mar é o alarme.'",
+    "icone": "📓",
+    "area": "litoranea",
+    "tipo": "pista",
+    "efeito": "Avance +1 na Proximidade do Cofre. O mestre pode responder uma pergunta sobre o litoral com sim ou não."
+  },
+  {
+    "id": "procurar-03",
+    "nome": "Anel de Micélio",
+    "descricao": "Raízes brancas formam um círculo perfeito. No centro, o solo está mais quente que o restante da floresta.",
+    "icone": "🌿",
+    "area": "mata",
+    "tipo": "pista",
+    "efeito": "Avance +1 na Proximidade do Cofre. Quem tocar o anel sente a direção geral do próximo desastre."
+  },
+  {
+    "id": "procurar-04",
+    "nome": "Poço de Evaporito",
+    "descricao": "Um buraco raso onde a água desaparece rápido demais. Nas paredes, marcas de ferramentas recentes.",
+    "icone": "⛏️",
+    "area": "seca",
+    "tipo": "pista",
+    "efeito": "Avance +1 na Proximidade do Cofre. Revela que alguém esteve aqui há menos de um dia."
+  },
+  {
+    "id": "procurar-05",
+    "nome": "Placa do Laboratório",
+    "descricao": "Placa enferrujada: 'Setor de Entropia Controlada — acesso restrito'. O número de série coincide com o do cofre.",
+    "icone": "🏷️",
+    "area": "cidade",
+    "tipo": "pista",
+    "efeito": "Avance +1 na Proximidade do Cofre. O grupo descobre o nome do setor onde o cofre foi selado."
+  },
+  {
+    "id": "procurar-06",
+    "nome": "Espectro de Frequência",
+    "descricao": "Um aparelho improvisado capta um padrão: três pulsos longos, um curto. Sempre vindo do mesmo azimute.",
+    "icone": "📻",
+    "area": "cidade",
+    "tipo": "pista",
+    "efeito": "Avance +2 na Proximidade do Cofre. O mestre aponta no mapa a direção aproximada do cofre."
+  }
+]

@@ -1,0 +1,9 @@
+.git
+.cursor
+.cursorignore
+*.md
+.dockerignore
+Dockerfile
+nginx.conf
+railway.toml
+.gitignore
