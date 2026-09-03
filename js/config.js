@@ -11,8 +11,8 @@ const CONFIG = {
       min: 0,
       max: 10,
       inicial: 0,
-      eventoMaximo: 'O Colapso se iniciou!',
-      descricaoEvento: 'A entropia atingiu o limite. O mundo começa a desmoronar.',
+      eventoMaximo: 'O céu escurece e o ar torna-se irrespirável. A Entropia Viva triunfou.',
+      descricaoEvento: 'Vocês foram derrotados, vítimas do saber fragmentado. A complexidade do mundo real avançou sem barreiras. Que sirva de lição: no mundo real, agir de forma segmentada é apenas outra forma de decretar a nossa própria ruína.',
       tema: 'colapso',
       inverterCores: false,
     },
@@ -23,8 +23,8 @@ const CONFIG = {
       min: 0,
       max: 15,
       inicial: 0,
-      eventoMaximo: 'O Cofre foi aberto!',
-      descricaoEvento: 'O mecanismo final se revela. O segredo está ao alcance.',
+      eventoMaximo: 'As engrenagens de bronze do Cofre finalmente giram, destravando um brilho suave que afasta as sombras da Entropia. Vocês venceram!',
+      descricaoEvento: 'Mas olhem para trás: este cofre não se abriu pela força bruta, por códigos matemáticos convencionais ou pela resposta isolada de um único pesquisador. Ele exigiu a soma viva de suas mentes. Nenhuma ciência é uma ilha. Ao tecerem conexões entre a Física, a Química e a Biologia, vocês provaram que a resposta para a crise socioambiental não está em gavetas separadas, mas no diálogo, na reciprocidade e na atitude interdisciplinar.',
       tema: 'cofre',
       inverterCores: true,
     },
@@ -48,10 +48,18 @@ const CONFIG = {
     acao: { label: 'Ação Especial', cor: '#f472b6' },
   },
   regrasMestre: {
+    intro: {
+      titulo: 'GUIA DO MESTRE: CARTAS DE DESASTRE',
+      subtitulo: 'A Entropia Viva — RPG Pedagógico sobre Sustentabilidade e Desastres Ambientais',
+      paragrafos: [
+        'Este apêndice contém todas as cartas de desastre que compõem o baralho da Fase da Natureza do jogo (incluindo as Colapso Irreversível), dispostas de acordo com as regiões do mapa (Gelo, Litorânea, Seca, Mata e Cidade), assim como as cartas do baralho de Procurar.',
+        'Cada carta de desastre foi criada para que a solução apresentada pelos jogadores necessite da combinação de múltiplos eixos de conhecimento científico, não sendo suficiente um único eixo para resolvê-la. Esta exigência representa, na dinâmica do jogo, a concretização da discussão central deste trabalho, que aborda a fragmentação do conhecimento e a urgência de uma abordagem interdisciplinar no ensino das Ciências.',
+      ],
+    },
     impactoPadrao: 'Quando a carta de desastre é apresentada, o medidor de Colapso aumenta conforme a carta.',
     sucessoContencao: {
       titulo: 'Sucesso na contenção (Soma ≥ 10)',
-      texto: 'Debate ou resolução interdisciplinar e cientificamente precisa. Bônus de +3 no dado + bônus do personagem. O desastre é evitado: Colapso diminui 1 nível e o Cofre sobe conforme a tabela de interdisciplinaridade.',
+      texto: 'Debate ou resolução interdisciplinar e cientificamente precisa. bonus da tabela de interdisciplinaridade de +3 no dado + bônus do personagem. O desastre é evitado: Colapso diminui 1 nível e o Cofre sobe conforme a tabela de interdisciplinaridade.',
     },
     falhaContencao: {
       titulo: 'Falha na contenção (Soma < 10)',

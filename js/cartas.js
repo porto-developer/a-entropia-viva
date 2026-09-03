@@ -134,13 +134,15 @@ function abrirModalMestre(carta) {
   const ativa = isCartaAtiva(carta.id);
   let html = `
     <div class="modal-detalhe modal-mestre" ${meta ? `style="border-top: 4px solid ${meta.cor}"` : ''}>
-      <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
-      <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '☢'}</div>
-      <h3 class="modal-detalhe-nome">${carta.nome}</h3>
-      <div class="carta-tags" style="justify-content:center;margin-bottom:1rem">
-        ${meta ? `<span class="tag" style="color:${meta.cor}">${meta.label}</span>` : ''}
-        <span class="tag" style="color:#f87171">+${carta.aumentoColapso} Colapso</span>
-        ${carta.irreversivel ? '<span class="tag" style="color:#ef4444">Irreversível</span>' : ''}
+      <div class="modal-detalhe-header">
+        <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
+        <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '☢'}</div>
+        <h3 class="modal-detalhe-nome">${carta.nome}</h3>
+        <div class="carta-tags">
+          ${meta ? `<span class="tag" style="color:${meta.cor}">${meta.label}</span>` : ''}
+          <span class="tag" style="color:#f87171">+${carta.aumentoColapso} Colapso</span>
+          ${carta.irreversivel ? '<span class="tag" style="color:#ef4444">Irreversível</span>' : ''}
+        </div>
       </div>
   `;
 
@@ -176,19 +178,36 @@ function abrirModalMestre(carta) {
   }
 
   html += `
-      <div class="modal-acoes-cartas">
-        <button type="button" class="btn ${ativa ? 'btn-danger' : 'btn-primary'}" id="btn-toggle-ativa">
-          ${ativa ? 'Desativar no telão' : 'Ativar no telão'}
-        </button>
-        ${ativa ? '<button type="button" class="btn btn-secondary" id="btn-exibir-telao">Exibir no telão</button>' : ''}
-      </div>
     </div>`;
 
   conteudo.innerHTML = html;
+  renderModalAcoesDesastre(carta, ativa);
   overlay.hidden = false;
+}
+
+function limparModalAcoes() {
+  const acoes = document.getElementById('modal-acoes');
+  if (acoes) acoes.innerHTML = '';
+}
+
+function renderModalAcoesDesastre(carta, ativa) {
+  const acoes = document.getElementById('modal-acoes');
+  if (!acoes) return;
+
+  const emExibicao = getCartasAtivas().destaque === carta.id;
+
+  acoes.innerHTML = `
+    <button type="button" class="btn ${ativa ? 'btn-confirm' : 'btn-primary'}" id="btn-toggle-ativa">
+      ${ativa ? 'Desativar no telão' : 'Ativar no telão'}
+    </button>
+    ${ativa ? `<button type="button" class="btn ${emExibicao ? 'btn-ghost' : 'btn-secondary'}" id="btn-exibir-telao">${emExibicao ? 'Remover exibição' : 'Exibir no telão'}</button>` : ''}
+  `;
 
   document.getElementById('btn-toggle-ativa')?.addEventListener('click', () => toggleCartaAtiva(carta));
-  document.getElementById('btn-exibir-telao')?.addEventListener('click', () => exibirNoTelao(carta.id));
+  document.getElementById('btn-exibir-telao')?.addEventListener('click', () => {
+    if (getCartasAtivas().destaque === carta.id) removerExibicaoTelao();
+    else exibirNoTelao(carta.id);
+  });
 }
 
 function abrirModalProcurar(carta) {
@@ -201,14 +220,17 @@ function abrirModalProcurar(carta) {
 
   conteudo.innerHTML = `
     <div class="modal-detalhe">
-      <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
-      <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '🃏'}</div>
-      <h3 class="modal-detalhe-nome">${carta.nome}</h3>
-      ${tipo ? `<div class="carta-tags" style="justify-content:center;margin-bottom:1rem"><span class="tag" style="color:${tipo.cor}">${tipo.label}</span></div>` : ''}
+      <div class="modal-detalhe-header">
+        <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
+        <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '🃏'}</div>
+        <h3 class="modal-detalhe-nome">${carta.nome}</h3>
+        ${tipo ? `<div class="carta-tags"><span class="tag" style="color:${tipo.cor}">${tipo.label}</span></div>` : ''}
+      </div>
       <p class="modal-detalhe-desc">${carta.descricao || 'Sem descrição.'}</p>
       ${carta.efeito ? `<div class="modal-detalhe-efeito"><strong>Efeito:</strong> ${carta.efeito}</div>` : ''}
     </div>
   `;
+  limparModalAcoes();
   overlay.hidden = false;
 }
 
@@ -234,11 +256,7 @@ async function ativarCarta(carta) {
     const novo = clampMedidorValor('colapso', medState.colapso + carta.aumentoColapso);
     setMedidorValor('colapso', novo);
     marcarColapsoAplicado(carta.id);
-    addLogEntry(`${carta.codigo} ativada: +${carta.aumentoColapso} no Colapso (agora ${novo})`);
     if (typeof renderMedidores === 'function') renderMedidores('admin');
-    if (typeof renderLog === 'function') renderLog();
-  } else {
-    addLogEntry(`${carta.codigo} reativada no telão`);
   }
 
   state.ids.push(carta.id);
@@ -255,22 +273,28 @@ async function desativarCarta(carta) {
   state.ids = state.ids.filter((id) => id !== carta.id);
   if (state.destaque === carta.id) state.destaque = null;
   setCartasAtivas(state);
-  addLogEntry(`${carta.codigo} desativada no telão`);
-  if (typeof renderLog === 'function') renderLog();
   fecharModalCartas();
   refreshGridsDesastre();
 }
 
 function exibirNoTelao(id) {
   setDestaqueCarta(id);
-  addLogEntry(`Carta ${id} em destaque no telão`);
-  if (typeof renderLog === 'function') renderLog();
   fecharModalCartas();
+  renderCartasAtivas();
+}
+
+function removerExibicaoTelao() {
+  limparDestaqueCarta();
+  renderCartasAtivas();
+  if (cartaModalAtual) {
+    renderModalAcoesDesastre(cartaModalAtual, isCartaAtiva(cartaModalAtual.id));
+  }
 }
 
 function fecharModalCartas() {
   const overlay = document.getElementById('modal-overlay');
   if (overlay) overlay.hidden = true;
+  limparModalAcoes();
   cartaModalAtual = null;
 }
 
@@ -339,6 +363,69 @@ function refreshGridsDesastre() {
     filtroTipo?.value || ''
   );
   renderGridDesastre(filtradas, cartasDesastre.length > 0);
+  renderCartasAtivas();
+}
+
+function renderCartasAtivas() {
+  const lista = document.getElementById('lista-cartas-ativas');
+  const empty = document.getElementById('empty-ativas');
+  if (!lista) return;
+
+  const { ids, destaque } = getCartasAtivas();
+  const ativas = ids
+    .map((id) => cartasDesastre.find((c) => c.id === id))
+    .filter(Boolean);
+
+  lista.innerHTML = '';
+
+  if (ativas.length === 0) {
+    if (empty) empty.hidden = false;
+    return;
+  }
+  if (empty) empty.hidden = true;
+
+  ativas.forEach((carta) => {
+    const meta = areaMeta(carta.area);
+    const emExibicao = destaque === carta.id;
+    const item = document.createElement('div');
+    item.className = 'carta-ativa-admin-item';
+    if (emExibicao) item.classList.add('carta-ativa-admin-destaque');
+    if (meta) item.style.borderLeftColor = meta.cor;
+
+    item.innerHTML = `
+      <button type="button" class="carta-ativa-admin-info" aria-label="Abrir detalhes de ${carta.nome}">
+        <span class="carta-codigo">${carta.codigo || carta.id}</span>
+        <span class="carta-ativa-admin-nome">${carta.nome}</span>
+        ${meta ? `<span class="tag" style="color:${meta.cor}">${meta.label}</span>` : ''}
+        ${emExibicao ? '<span class="tag tag-exibindo">Exibindo</span>' : ''}
+      </button>
+      <div class="carta-ativa-admin-acoes">
+        <button type="button" class="btn btn-sm btn-exibir-ativa ${emExibicao ? 'btn-secondary' : 'btn-ghost'}">${emExibicao ? 'Remover exibição' : 'Exibir'}</button>
+        <button type="button" class="btn btn-danger btn-sm btn-desativar-ativa">Desativar</button>
+      </div>
+    `;
+
+    item.querySelector('.carta-ativa-admin-info')?.addEventListener('click', () => abrirModalMestre(carta));
+    item.querySelector('.btn-exibir-ativa')?.addEventListener('click', () => {
+      if (getCartasAtivas().destaque === carta.id) removerExibicaoTelao();
+      else exibirNoTelao(carta.id);
+    });
+    item.querySelector('.btn-desativar-ativa')?.addEventListener('click', () => desativarCarta(carta));
+
+    lista.appendChild(item);
+  });
+}
+
+function renderIntroGuia() {
+  const el = document.getElementById('guia-intro');
+  if (!el || !CONFIG.regrasMestre?.intro) return;
+  const intro = CONFIG.regrasMestre.intro;
+
+  el.innerHTML = `
+    <h2 id="titulo-guia-intro" class="guia-intro-titulo">${intro.titulo}</h2>
+    <p class="guia-intro-subtitulo">${intro.subtitulo}</p>
+    ${intro.paragrafos.map((p) => `<p class="guia-intro-texto">${p}</p>`).join('')}
+  `;
 }
 
 function renderConsultaMestre() {
@@ -346,36 +433,81 @@ function renderConsultaMestre() {
   if (!el || !CONFIG.regrasMestre) return;
   const r = CONFIG.regrasMestre;
 
+  const regionais = cartasDesastre.filter((c) => !c.irreversivel);
+  const linhasCartas = regionais.map((c) => {
+    const regiao = areaMeta(c.area)?.label || c.area || '—';
+    return `<tr>
+      <td class="col-numero">${c.codigo}</td>
+      <td class="col-carta">${c.nome}</td>
+      <td class="col-regiao">${regiao}</td>
+      <td class="col-aumento">${c.aumentoColapso}</td>
+    </tr>`;
+  }).join('');
+
+  const linhasMedidor = r.cartasPorTurno.map((row) => `
+    <tr>
+      <td class="col-nivel">${row.nivel}</td>
+      <td class="col-fase">${row.fase}</td>
+      <td class="col-reveladas">${row.reveladas}</td>
+    </tr>
+  `).join('');
+
   el.innerHTML = `
-    <p>${r.impactoPadrao}</p>
-    <div class="consulta-bloco">
-      <h4>${r.sucessoContencao.titulo}</h4>
-      <p>${r.sucessoContencao.texto}</p>
+    <div class="consulta-rapida-bloco">
+      <table class="tabela-consulta tabela-consulta-rapida" aria-label="Consulta rápida — cartas de desastre">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Carta</th>
+            <th>Região</th>
+            <th>Aumento do medidor</th>
+          </tr>
+        </thead>
+        <tbody>${linhasCartas || '<tr><td colspan="4">Carregando cartas…</td></tr>'}</tbody>
+      </table>
     </div>
-    <div class="consulta-bloco">
-      <h4>${r.falhaContencao.titulo}</h4>
-      <p>${r.falhaContencao.texto}</p>
+
+    <h3 class="consulta-subtitulo">Correspondência entre nível do medidor e liberação de cartas</h3>
+    <div class="consulta-rapida-bloco">
+      <table class="tabela-consulta tabela-consulta-rapida" aria-label="Correspondência nível do medidor e cartas por turno">
+        <thead>
+          <tr>
+            <th>Nível do medidor</th>
+            <th>Fase</th>
+            <th>Reveladas por turno</th>
+          </tr>
+        </thead>
+        <tbody>${linhasMedidor}</tbody>
+      </table>
     </div>
-    <div class="consulta-bloco">
-      <h4>Colapso irreversível</h4>
-      <p>${r.irreversivel}</p>
-    </div>
-    <h4>Cartas reveladas por turno</h4>
-    <table class="tabela-consulta">
-      <thead><tr><th>Nível Colapso</th><th>Fase</th><th>Reveladas</th></tr></thead>
-      <tbody>
-        ${r.cartasPorTurno.map((row) => `<tr><td>${row.nivel}</td><td>${row.fase}</td><td>${row.reveladas}</td></tr>`).join('')}
-      </tbody>
-    </table>
-    <h4>Tabela de interdisciplinaridade</h4>
-    <table class="tabela-consulta">
-      <thead><tr><th>Nível</th><th>Cofre</th><th>Descrição</th></tr></thead>
-      <tbody>
-        ${r.interdisciplinaridade.map((row) => `<tr><td>${row.nivel}</td><td>+${row.cofre}</td><td><strong>${row.titulo}</strong> — ${row.descricao}</td></tr>`).join('')}
-      </tbody>
-    </table>
-    <h4>Três eixos de conhecimento</h4>
-    ${listaHtml(r.eixos)}
+
+    <details class="consulta-detalhes">
+      <summary>Regras de contenção e interdisciplinaridade</summary>
+      <div class="consulta-detalhes-conteudo">
+        <p>${r.impactoPadrao}</p>
+        <div class="consulta-bloco">
+          <h4>${r.sucessoContencao.titulo}</h4>
+          <p>${r.sucessoContencao.texto}</p>
+        </div>
+        <div class="consulta-bloco">
+          <h4>${r.falhaContencao.titulo}</h4>
+          <p>${r.falhaContencao.texto}</p>
+        </div>
+        <div class="consulta-bloco">
+          <h4>Colapso irreversível</h4>
+          <p>${r.irreversivel}</p>
+        </div>
+        <h4>Tabela de interdisciplinaridade</h4>
+        <table class="tabela-consulta">
+          <thead><tr><th>Nível</th><th>Pontos no Cofre</th><th>Descrição</th></tr></thead>
+          <tbody>
+            ${r.interdisciplinaridade.map((row) => `<tr><td>${row.nivel}</td><td>+${row.cofre}</td><td><strong>${row.titulo}</strong> — ${row.descricao}</td></tr>`).join('')}
+          </tbody>
+        </table>
+        <h4>Três eixos de conhecimento</h4>
+        ${listaHtml(r.eixos)}
+      </div>
+    </details>
   `;
 }
 
@@ -384,7 +516,7 @@ function setupFiltrosDesastre() {
   const filtroArea = document.getElementById('filtro-area-desastre');
   const filtroTipo = document.getElementById('filtro-tipo-desastre');
 
-  preencherSelect(filtroArea, CONFIG.areas, 'Todos os biomas');
+  preencherSelect(filtroArea, CONFIG.areas, 'Todas as regiões');
   if (filtroTipo) {
     filtroTipo.innerHTML = `
       <option value="">Todas as cartas</option>
@@ -443,14 +575,16 @@ function initModalCartasAdmin() {
 
 async function initCartas() {
   initModalCartasAdmin();
-  renderConsultaMestre();
+  renderIntroGuia();
 
   try {
     cartasDesastre = await carregarCartas(CONFIG.cartas.desastre);
     setupFiltrosDesastre();
+    renderConsultaMestre();
   } catch {
     mostrarErroCartas('desastre',
       'Não foi possível carregar as cartas de desastre. Use um servidor estático (ex: python3 -m http.server).');
+    renderConsultaMestre();
   }
 
   try {
@@ -460,6 +594,8 @@ async function initCartas() {
     mostrarErroCartas('procurar',
       'Não foi possível carregar as cartas de procurar. Use um servidor estático (ex: python3 -m http.server).');
   }
+
+  renderCartasAtivas();
 }
 
 function getCartaDesastrePorId(id) {

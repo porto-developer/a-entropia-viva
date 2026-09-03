@@ -34,11 +34,6 @@ function calcularRatio(valor, min, max) {
   return Math.max(0, Math.min(1, (valor - min) / (max - min)));
 }
 
-function formatarHora(iso) {
-  const d = new Date(iso);
-  return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-}
-
 function renderGaugeRing(el, valor, config) {
   const ratio = calcularRatio(valor, config.min, config.max);
   const cor = interpolarCor(ratio, config.inverterCores);
@@ -107,6 +102,7 @@ function mostrarModalEvento(config) {
       <p class="modal-evento-desc">${config.descricaoEvento}</p>
     </div>
   `;
+  if (typeof limparModalAcoes === 'function') limparModalAcoes();
   overlay.hidden = false;
 }
 
@@ -179,9 +175,6 @@ function verificarMaximo(id, valorAnterior, valorNovo, config) {
     if (!disparado[id]) {
       setMaxDisparado(id, true);
       mostrarModalEvento(config);
-      if (typeof tocarSomMaximo === 'function') {
-        tocarSomMaximo(id);
-      }
     }
   }
 }
@@ -203,15 +196,6 @@ function atualizarMedidor(id, valorNovo) {
   }
 
   verificarMaximo(id, valorAnterior, valorNovo, config);
-
-  if (medidorModo === 'admin' && valorAnterior !== valorNovo) {
-    const hora = formatarHora(new Date().toISOString());
-    const texto = `${config.nome} ajustado de ${valorAnterior} para ${valorNovo} às ${hora}`;
-    if (typeof addLogEntry === 'function') {
-      addLogEntry(texto);
-      if (typeof renderLog === 'function') renderLog();
-    }
-  }
 }
 
 async function resetarMedidor(id) {
@@ -223,15 +207,8 @@ async function resetarMedidor(id) {
   );
   if (!ok) return;
 
-  const valorAnterior = valoresAnteriores[id] ?? config.inicial;
   resetMaxDisparado(id);
   atualizarMedidor(id, config.inicial);
-
-  if (medidorModo === 'admin') {
-    const hora = formatarHora(new Date().toISOString());
-    addLogEntry(`${config.nome} resetado de ${valorAnterior} para ${config.inicial} às ${hora}`);
-    if (typeof renderLog === 'function') renderLog();
-  }
 }
 
 function renderMedidores(modo) {

@@ -27,10 +27,12 @@ function renderModalJogador(carta) {
 
   let html = `
     <div class="modal-jogador ${carta.irreversivel ? 'modal-jogador-irreversivel' : ''}">
-      <span class="carta-codigo modal-codigo-grande">${carta.codigo || carta.id}</span>
-      <h2 class="modal-jogador-titulo">${carta.nome}</h2>
-      ${meta ? `<span class="tag tag-grande" style="color:${meta.cor}">${meta.label}</span>` : ''}
-      ${carta.irreversivel ? '<p class="aviso-irreversivel-telao">Evento irreversível — sem solução neste turno</p>' : ''}
+      <div class="modal-detalhe-header">
+        <span class="carta-codigo modal-codigo-grande">${carta.codigo || carta.id}</span>
+        <h2 class="modal-jogador-titulo">${carta.nome}</h2>
+        ${meta ? `<div class="carta-tags"><span class="tag tag-grande" style="color:${meta.cor}">${meta.label}</span></div>` : ''}
+        ${carta.irreversivel ? '<p class="aviso-irreversivel-telao">Evento irreversível — sem solução neste turno</p>' : ''}
+      </div>
       <div class="modal-jogador-narrativa">${carta.jogador?.narrativa || ''}</div>
   `;
 
@@ -40,6 +42,8 @@ function renderModalJogador(carta) {
 
   html += '</div>';
   conteudo.innerHTML = html;
+  const acoes = document.getElementById('modal-acoes');
+  if (acoes) acoes.innerHTML = '';
   overlay.hidden = false;
 }
 

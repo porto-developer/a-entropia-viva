@@ -16,16 +16,25 @@
     <nav class="header-nav">
       <a href="admin.html" class="nav-link active">Painel</a>
       <a href="publico.html" target="_blank" rel="noopener" class="nav-link">Tela pública</a>
-      <button type="button" id="btn-som" class="btn btn-ghost btn-sm" title="Ligar/desligar sons">🔊 Som</button>
       <button type="button" id="btn-logout" class="btn btn-ghost btn-sm">Sair</button>
     </nav>
   </header>
 
   <main class="admin-main">
+    <!-- Introdução do guia -->
+    <section class="panel guia-intro" id="guia-intro" aria-labelledby="titulo-guia-intro"></section>
+
     <!-- Medidores -->
     <section class="panel" aria-labelledby="titulo-medidores">
       <h2 id="titulo-medidores">Medidores</h2>
       <div id="medidores-container" class="medidores-grid"></div>
+    </section>
+
+    <!-- Desastres ativos -->
+    <section class="panel panel-compact" aria-labelledby="titulo-ativas">
+      <h2 id="titulo-ativas">Desastres ativos no telão</h2>
+      <div id="lista-cartas-ativas" class="cartas-ativas-admin"></div>
+      <p id="empty-ativas" class="empty-state">Nenhuma carta de desastre ativa no telão.</p>
     </section>
 
     <!-- Exportar / Importar -->
@@ -41,20 +50,10 @@
       <p id="importar-feedback" class="feedback" hidden role="status"></p>
     </section>
 
-    <!-- Log -->
-    <section class="panel" aria-labelledby="titulo-log">
-      <div class="panel-header-row">
-        <h2 id="titulo-log">Log de ações</h2>
-        <button type="button" id="btn-limpar-log" class="btn btn-ghost btn-sm">Limpar log</button>
-      </div>
-      <ul id="log-lista" class="log-lista"></ul>
-      <p id="log-vazio" class="empty-state">Nenhuma ação registrada ainda.</p>
-    </section>
-
-    <!-- Consulta do mestre -->
+    <!-- Consulta rápida -->
     <section class="panel panel-compact" aria-labelledby="titulo-consulta">
       <details class="consulta-mestre" open>
-        <summary><h2 id="titulo-consulta">Consulta do mestre</h2></summary>
+        <summary><h2 id="titulo-consulta">Consulta rápida do mestre</h2></summary>
         <div id="consulta-mestre-conteudo" class="consulta-mestre-conteudo"></div>
       </details>
     </section>
@@ -64,7 +63,7 @@
       <h2 id="titulo-desastre">Cartas de Desastre</h2>
       <div class="cartas-filtros" id="filtros-desastre">
         <input type="search" id="busca-desastre" placeholder="Buscar por nome ou código..." aria-label="Buscar cartas de desastre">
-        <select id="filtro-area-desastre" aria-label="Filtrar por bioma"></select>
+        <select id="filtro-area-desastre" aria-label="Filtrar por região"></select>
         <select id="filtro-tipo-desastre" aria-label="Filtrar por tipo">
           <option value="">Todas as cartas</option>
           <option value="regional">Regionais</option>
@@ -93,35 +92,28 @@
   <div id="modal-overlay" class="modal-overlay" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
       <div id="modal-conteudo"></div>
-      <button type="button" id="modal-fechar" class="btn btn-primary modal-btn-fechar">Fechar</button>
+      <div class="modal-footer">
+        <div id="modal-acoes" class="modal-acoes-cartas"></div>
+        <button type="button" id="modal-fechar" class="btn btn-secondary modal-btn-fechar">Fechar</button>
+      </div>
     </div>
   </div>
 
   <!-- Modal de confirmação -->
   <div id="confirm-overlay" class="modal-overlay" hidden>
     <div class="modal modal-confirm" role="dialog" aria-modal="true" aria-labelledby="confirm-titulo">
-      <h3 id="confirm-titulo">Confirmar</h3>
+      <h3 id="confirm-titulo">Você confirma esta ação?</h3>
       <p id="confirm-mensagem"></p>
       <div class="modal-actions">
-        <button type="button" id="confirm-cancelar" class="btn btn-ghost">Cancelar</button>
-        <button type="button" id="confirm-ok" class="btn btn-danger">Confirmar</button>
+        <button type="button" id="confirm-cancelar" class="btn btn-secondary">Cancelar</button>
+        <button type="button" id="confirm-ok" class="btn btn-confirm">Confirmar</button>
       </div>
     </div>
   </div>
 
-  <!-- Áudios -->
-  <audio id="audio-colapso" preload="auto">
-    <source src="assets/sons/colapso.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="audio-cofre" preload="auto">
-    <source src="assets/sons/cofre.mp3" type="audio/mpeg">
-  </audio>
-
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/log.js"></script>
-  <script src="js/sons.js"></script>
   <script src="js/medidores.js"></script>
   <script src="js/cartas.js"></script>
   <script src="js/exportar-importar.js"></script>
@@ -130,9 +122,7 @@
       initLogout();
       initMedidores('admin');
       initCartas();
-      initLog();
       initExportImport();
-      initSons();
     }
   </script>
 </body>

@@ -4,8 +4,6 @@
 const STORAGE_KEYS = {
   logado: 'entropia_logado',
   medidores: 'entropia_medidores',
-  log: 'entropia_log',
-  som: 'entropia_som',
   maxDisparado: 'entropia_max_disparado',
   cartasAtivas: 'entropia_cartas_ativas',
   colapsoAplicado: 'entropia_colapso_aplicado',
@@ -64,34 +62,6 @@ function setMedidorValor(id, valor) {
   return state;
 }
 
-function getLog() {
-  return storageGet(STORAGE_KEYS.log, []);
-}
-
-function addLogEntry(texto) {
-  const log = getLog();
-  const entry = {
-    texto,
-    timestamp: new Date().toISOString(),
-  };
-  log.unshift(entry);
-  if (log.length > 200) log.length = 200;
-  storageSet(STORAGE_KEYS.log, log);
-  return log;
-}
-
-function clearLog() {
-  storageSet(STORAGE_KEYS.log, []);
-}
-
-function getSomAtivo() {
-  return storageGet(STORAGE_KEYS.som, true);
-}
-
-function setSomAtivo(ativo) {
-  storageSet(STORAGE_KEYS.som, ativo);
-}
-
 function getMaxDisparado() {
   return storageGet(STORAGE_KEYS.maxDisparado, {});
 }
@@ -143,6 +113,7 @@ function jaAplicouColapso(id) {
 
 function setDestaqueCarta(id) {
   const state = getCartasAtivas();
+  if (!state.ids.includes(id)) return;
   state.destaque = id;
   setCartasAtivas(state);
 }
@@ -158,8 +129,6 @@ function exportarEstado() {
     versao: 2,
     exportadoEm: new Date().toISOString(),
     medidores: getMedidoresState(),
-    log: getLog(),
-    som: getSomAtivo(),
     maxDisparado: getMaxDisparado(),
     cartasAtivas: getCartasAtivas(),
     colapsoAplicado: getColapsoAplicado(),
@@ -171,8 +140,6 @@ function importarEstado(data) {
     throw new Error('Arquivo inválido.');
   }
   if (data.medidores) storageSet(STORAGE_KEYS.medidores, data.medidores);
-  if (data.log) storageSet(STORAGE_KEYS.log, data.log);
-  if (typeof data.som === 'boolean') storageSet(STORAGE_KEYS.som, data.som);
   if (data.maxDisparado) storageSet(STORAGE_KEYS.maxDisparado, data.maxDisparado);
   if (data.cartasAtivas) setCartasAtivas(data.cartasAtivas);
   if (data.colapsoAplicado) storageSet(STORAGE_KEYS.colapsoAplicado, data.colapsoAplicado);
