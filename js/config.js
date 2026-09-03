@@ -59,7 +59,7 @@ const CONFIG = {
     impactoPadrao: 'Quando a carta de desastre é apresentada, o medidor de Colapso aumenta conforme a carta.',
     sucessoContencao: {
       titulo: 'Sucesso na contenção (Soma ≥ 10)',
-      texto: 'Debate ou resolução interdisciplinar e cientificamente precisa. bonus da tabela de interdisciplinaridade de +3 no dado + bônus do personagem. O desastre é evitado: Colapso diminui 1 nível e o Cofre sobe conforme a tabela de interdisciplinaridade.',
+      texto: 'Debate ou resolução do desastre ecológico de forma interdisciplinar e cientificamente precisa (valor no cofre conforme a tabela de interdisciplinaridade + bônus do personagem).',
     },
     falhaContencao: {
       titulo: 'Falha na contenção (Soma < 10)',
@@ -73,10 +73,34 @@ const CONFIG = {
       { nivel: '10', fase: 'Colapso', reveladas: 'Fim do jogo' },
     ],
     interdisciplinaridade: [
-      { nivel: 0, cofre: 0, titulo: 'Pensamento fragmentado', descricao: 'Menciona um eixo ou articula informações incorretas. Conceitos isolados, sem causa e efeito, ou explicação "mágica". Resposta de Nível 0 correta (um eixo) impede Colapso de subir, mas não avança o Cofre.' },
-      { nivel: 1, cofre: 1, titulo: 'Dois eixos', descricao: 'Usa corretamente dois conceitos (Física, Química, Biologia) mas não relaciona os efeitos entre si.' },
-      { nivel: 2, cofre: 2, titulo: 'Início sistêmico', descricao: 'Explica por que um eixo influencia o outro (não só cita os dois lado a lado).' },
-      { nivel: 3, cofre: 3, titulo: 'Pensamento holístico', descricao: 'Constrói cadeia entre os três eixos, chega à causa raiz e propõe solução que reduz a chance do problema voltar.' },
+      {
+        nivel: 0,
+        cofre: 0,
+        titulo: 'Pensamento fragmentado',
+        caracteristica: 'Menciona um eixo',
+        descricao: 'Citam conceitos científicos ou dados socioambientais de forma isolada, sem estabelecer relações de causa e efeito ou propor soluções integradas (com só um eixo), articulam informações incorretas ou oferecem explicação cientificamente errada/"mágica" (resolve sem explicar).',
+      },
+      {
+        nivel: 1,
+        cofre: 1,
+        titulo: 'Dois eixos',
+        caracteristica: 'Menciona dois eixos',
+        descricao: 'Usa corretamente dois conceitos (Física, Química, Biologia) para atacar ou discutir o efeito do problema, mas não relaciona os efeitos entre si.',
+      },
+      {
+        nivel: 2,
+        cofre: 2,
+        titulo: 'Início de um pensamento sistêmico',
+        caracteristica: 'Conecta dois eixos',
+        descricao: 'Explica por que um eixo influencia o outro (não só cita os dois lado a lado) para atacar ou discutir o efeito do desastre.',
+      },
+      {
+        nivel: 3,
+        cofre: 3,
+        titulo: 'Pensamento sistêmico e holístico',
+        caracteristica: 'Eixos articulados',
+        descricao: 'Constrói uma cadeia entre três eixos, chega à causa raiz conectando os três e propõe solução (reduzindo a chance do problema voltar) ou discussão complexa acerca do desastre.',
+      },
     ],
     eixos: [
       'Compreensão das leis da natureza (energia, calor, forças, fluidos)',

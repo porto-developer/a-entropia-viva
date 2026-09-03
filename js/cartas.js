@@ -499,9 +499,17 @@ function renderConsultaMestre() {
         </div>
         <h4>Tabela de interdisciplinaridade</h4>
         <table class="tabela-consulta">
-          <thead><tr><th>Nível</th><th>Pontos no Cofre</th><th>Descrição</th></tr></thead>
+          <thead><tr><th>Nível</th><th>Pontos no Cofre</th><th>O que caracteriza a resposta</th><th>Descrição</th></tr></thead>
           <tbody>
-            ${r.interdisciplinaridade.map((row) => `<tr><td>${row.nivel}</td><td>+${row.cofre}</td><td><strong>${row.titulo}</strong> — ${row.descricao}</td></tr>`).join('')}
+            ${r.interdisciplinaridade.map((row) => {
+              const pontos = row.cofre === 0 ? '0 pontos' : `+${row.cofre} ponto${row.cofre > 1 ? 's' : ''}`;
+              return `<tr>
+                <td><strong>${row.titulo}</strong> (${row.nivel})</td>
+                <td>${pontos}</td>
+                <td>${row.caracteristica || '—'}</td>
+                <td>${row.descricao}</td>
+              </tr>`;
+            }).join('')}
           </tbody>
         </table>
         <h4>Três eixos de conhecimento</h4>
