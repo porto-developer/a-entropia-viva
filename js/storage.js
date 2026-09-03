@@ -7,6 +7,8 @@ const STORAGE_KEYS = {
   log: 'entropia_log',
   som: 'entropia_som',
   maxDisparado: 'entropia_max_disparado',
+  cartasAtivas: 'entropia_cartas_ativas',
+  colapsoAplicado: 'entropia_colapso_aplicado',
 };
 
 function storageGet(key, fallback = null) {
@@ -106,14 +108,61 @@ function resetMaxDisparado(id) {
   storageSet(STORAGE_KEYS.maxDisparado, state);
 }
 
+function getCartasAtivas() {
+  const saved = storageGet(STORAGE_KEYS.cartasAtivas, null);
+  if (saved && Array.isArray(saved.ids)) {
+    return { ids: [...saved.ids], destaque: saved.destaque || null };
+  }
+  return { ids: [], destaque: null };
+}
+
+function setCartasAtivas(state) {
+  storageSet(STORAGE_KEYS.cartasAtivas, {
+    ids: state.ids || [],
+    destaque: state.destaque || null,
+  });
+}
+
+function isCartaAtiva(id) {
+  return getCartasAtivas().ids.includes(id);
+}
+
+function getColapsoAplicado() {
+  return storageGet(STORAGE_KEYS.colapsoAplicado, {});
+}
+
+function marcarColapsoAplicado(id) {
+  const state = getColapsoAplicado();
+  state[id] = true;
+  storageSet(STORAGE_KEYS.colapsoAplicado, state);
+}
+
+function jaAplicouColapso(id) {
+  return !!getColapsoAplicado()[id];
+}
+
+function setDestaqueCarta(id) {
+  const state = getCartasAtivas();
+  state.destaque = id;
+  setCartasAtivas(state);
+}
+
+function limparDestaqueCarta() {
+  const state = getCartasAtivas();
+  state.destaque = null;
+  setCartasAtivas(state);
+}
+
 function exportarEstado() {
   return {
-    versao: 1,
+    versao: 2,
     exportadoEm: new Date().toISOString(),
     medidores: getMedidoresState(),
     log: getLog(),
     som: getSomAtivo(),
     maxDisparado: getMaxDisparado(),
+    cartasAtivas: getCartasAtivas(),
+    colapsoAplicado: getColapsoAplicado(),
   };
 }
 
@@ -125,4 +174,6 @@ function importarEstado(data) {
   if (data.log) storageSet(STORAGE_KEYS.log, data.log);
   if (typeof data.som === 'boolean') storageSet(STORAGE_KEYS.som, data.som);
   if (data.maxDisparado) storageSet(STORAGE_KEYS.maxDisparado, data.maxDisparado);
+  if (data.cartasAtivas) setCartasAtivas(data.cartasAtivas);
+  if (data.colapsoAplicado) storageSet(STORAGE_KEYS.colapsoAplicado, data.colapsoAplicado);
 }

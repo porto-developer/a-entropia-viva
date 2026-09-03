@@ -1,50 +1,641 @@
 [
   {
-    "id": "desastre-01",
-    "nome": "Derretimento do Manto",
-    "descricao": "O permafrost cede. Gelo ancestral se liquefaz e expõe camadas que deveriam permanecer seladas. O ar fica denso, metálico.",
-    "icone": "🧊",
+    "id": "G1",
+    "codigo": "G1",
+    "nome": "Derretimento das Geleiras",
     "area": "gelo",
-    "efeito": "Avance +1 no Colapso. O grupo sofre frio extremo: testes físicos neste turno com desvantagem."
+    "icone": "🧊",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Os dados recebidos pelos pesquisadores são preocupantes: a quantidade de gelo está diminuindo rapidamente. Regiões antes cobertas por gelo começam a apresentar áreas expostas, enquanto a temperatura permanece acima do esperado. Animais que utilizam o gelo como parte de seu habitat estão sendo obrigados a se deslocar em busca de condições adequadas para sobreviver. Ao mesmo tempo, a água resultante da perda de gelo chega ao oceano e provoca mudanças nas condições ambientais. Os cientistas identificaram que o planeta está retendo mais energia térmica do que antes.",
+      "pergunta": "Mas por quê?"
+    },
+    "mestre": {
+      "oQueAcontece": "O aumento da temperatura média global, provocado pelo acúmulo de gases de efeito estufa (CO₂, metano) na atmosfera, estimula o derretimento acelerado do gelo polar. O volume de água doce liberado eleva o nível do mar e modifica a salinidade das águas, alterando as correntes oceânicas e impactando a biodiversidade local.",
+      "informacoesGuia": [
+        "Balanço de energia térmica; Mudança de estado da matéria (fusão do gelo).",
+        "Gases de efeito estufa e composição da atmosfera; Efeito sobre habitats e cadeias alimentares."
+      ],
+      "causas": [
+        "Queima elevada de combustíveis fósseis: Carvão, petróleo e gás natural são utilizados para produzir energia e movimentar transportes e indústrias. A combustão libera principalmente CO2.",
+        "Atividades industriais e agropecuárias: liberam metano e outros gases de efeito estufa que intensificam a retenção de calor.",
+        "Mudanças no uso da terra e desmatamento: Alterações na cobertura vegetal reduzem a capacidade natural de absorção de CO2, contribuindo para o acúmulo desses gases."
+      ],
+      "pista": "Pergunte o que aconteceria se toda a água doce hoje presa em gelo fosse liberada de uma vez. Guie a discussão sobre como a destruição do habitat glacial desorganiza a cadeia alimentar local."
+    }
   },
   {
-    "id": "desastre-02",
-    "nome": "Maré Ácida",
-    "descricao": "A linha d'água sobe com um cheiro de vinagre e ferrugem. Conchas se dissolvem na areia. O pH da costa despencou.",
+    "id": "G2",
+    "codigo": "G2",
+    "nome": "Migração Forçada da Fauna Polar",
+    "area": "gelo",
+    "icone": "🐻‍❄️",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "O gelo que servia como plataforma para caça, descanso e reprodução está cada vez mais fragmentado. Em busca de alimento e condições adequadas para sobreviver, animais da região polar começam a percorrer distâncias maiores e ocupar áreas diferentes das que utilizavam anteriormente. Ao chegar a novos locais, esses animais encontram temperaturas, disponibilidade de água e condições do ambiente diferentes. A composição e as características da água também influenciam quais organismos conseguem viver e se alimentar nestas regiões. A chegada de novos animais modifica a disponibilidade de recursos e pode aumentar a competição e a predação entre espécies que antes não compartilhavam o mesmo espaço.",
+      "pergunta": "Como as características físicas e químicas de um ambiente influenciam quais espécies conseguem ocupá-lo? E o que acontece com as relações entre os seres vivos quando eles passam a compartilhar novos espaços?"
+    },
+    "mestre": {
+      "oQueAcontece": "Algumas espécies de animais utilizam áreas específicas para alimentação, descanso e reprodução. Com a alteração desse habitat por meio da redução da camada de gelo, ou por fragmentação desses espaços, os animais podem ficar sem disponibilidade de recursos essenciais e começam a percorrer distâncias maiores. Podem até mesmo ocupar novas áreas, que podem ter diferentes temperaturas, água, alimento e outras espécies, aumentando a competição por recursos e modificando relações de predação.",
+      "informacoesGuia": [
+        "Comportamento animal e migração, habitat e nicho ecológico, disponibilidade de recursos, relações de competição e predação, temperatura, propriedades da água e salinidade."
+      ],
+      "causas": [
+        "A diminuição e fragmentação do habitat: a redução das áreas de gelo restringe e isola espaços. Mudanças nas condições físicas do ambiente, como variações de temperatura e a presença de gelo, alteram os parâmetros que algumas espécies necessitam para a sua sobrevivência.",
+        "Modificações nas condições químicas da água: variações na salinidade e em outras propriedades da água podem afetar a dispersão de organismos aquáticos que integram as redes alimentares.",
+        "Alteração nas interações ecológicas: quando animais começam a ocupar novas áreas, podem se deparar com espécies com as quais anteriormente tinham escasso ou nenhum contato, modificando as relações de competição e predação."
+      ],
+      "pista": "Pergunte o que aconteceria se toda a água doce hoje presa em gelo fosse liberada de uma vez. Guie a discussão sobre como a destruição do habitat glacial desorganiza a cadeia alimentar local."
+    }
+  },
+  {
+    "id": "G3",
+    "codigo": "G3",
+    "nome": "Degelo do Permafrost",
+    "area": "gelo",
+    "icone": "🫧",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "A equipe de campo percebe bolhas subindo através de poças recém-formadas sobre o solo antes congelado o ano inteiro. Em alguns pontos, o terreno afunda de repente, formando crateras e lagoas instáveis. Estruturas de pesquisa antigas começam a rachar porque o chão que as sustentava não é mais sólido. Um cheiro estranho, como ovo podre, é sentido perto de uma das crateras mais profundas. Ao mesmo tempo, os pesquisadores observam que algumas regiões continuam apresentando aumento de temperatura mesmo sem mudanças significativas na quantidade de energia recebida do Sol. Os instrumentos registram picos inesperados de um gás que os pesquisadores não esperavam encontrar em tal quantidade ali. A equipe precisa identificar o que está escondido sob o permafrost, entender por que ele está degelando e agir antes que o fenômeno se espalhe para outras áreas do território gelado.",
+      "pergunta": "Por que a cor e as características da superfície podem influenciar a quantidade de energia absorvida pelo planeta?"
+    },
+    "mestre": {
+      "oQueAcontece": "O permafrost é uma camada de solo congelado por milhares de anos, rica em matéria orgânica e gases. Quando a temperatura aumenta, essa camada se funde, e micro-organismos reiniciam o processo de decomposição da matéria orgânica que estava congelada, liberando metano e dióxido de carbono. Por reter calor de maneira muito mais eficiente em um curto espaço de tempo, o metano acelera o descongelamento, que, por sua vez, aumenta ainda mais o aquecimento, criando um ciclo de retroalimentação.",
+      "informacoesGuia": [
+        "Transferência de calor no solo e mudança de fase da água",
+        "Metano (CH4) como gás de efeito estufa mais potente que o CO2",
+        "Decomposição da matéria orgânica por micro-organismos do solo"
+      ],
+      "causas": [
+        "Elevação da temperatura na região: O Ártico está se aquecendo a uma velocidade muito superior à média mundial, o que está acelerando o derretimento de camadas profundas do solo.",
+        "Desgelo e derretimento da neve: Superfícies que eram brancas (refletindo a luz do sol) agora são substituídas por solo escuro, que absorve mais calor (efeito albedo).",
+        "Atividade microbiana reativada: Com o degelo, microrganismos que estavam paralisados retomam a decomposição de matéria orgânica antiga, liberando gases que estavam aprisionados por milênios."
+      ],
+      "pista": "Questione por que um gás pode ser \"mais perigoso\" que outro mesmo em menor quantidade. Conduza os cientistas a conectar o efeito albedo (superfície clara versus escura) ao aceleramento do degelo."
+    },
+    "perigo": {
+      "codigo": "V1",
+      "nome": "Queda em Terreno Instável",
+      "descricao": "Os cientistas escorregam em um terreno instável.",
+      "efeito": "Se falhar no teste de dado, perde a próxima ação."
+    }
+  },
+  {
+    "id": "G4",
+    "codigo": "G4",
+    "nome": "Acidificação das Águas Polares",
+    "area": "gelo",
     "icone": "🌊",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Um grupo de biólogos nota algo estranho ao examinar pequenos organismos com concha coletados na última expedição: as conchas estão visivelmente mais finas e, em alguns casos, corroídas. Esses organismos, minúsculos mas essenciais, sustentam boa parte da dieta de peixes e aves da região. Testes rápidos na água revelam que ela está mais ácida do que o registrado em anos anteriores. A equipe descobriu que as águas polares estão mais frias e mais ácidas.",
+      "pergunta": "Como a temperatura influencia a dissolução do CO₂ na água e como o aumento desse gás pode alterar as condições necessárias para a formação e manutenção das conchas? Quais consequências essa mudança pode provocar na cadeia alimentar?"
+    },
+    "mestre": {
+      "oQueAcontece": "Os mares absorvem uma parte do CO2 que está no ar. Quando o CO2 se dissolve na água, ele se transforma em ácido carbônico, o que provoca uma diminuição do pH da água (acidificação) e resulta em uma redução na disponibilidade de carbonato, que é uma substância utilizada por muitos organismos marinhos para formar conchas e esqueletos. Águas mais frias têm uma maior capacidade de absorver CO2 em comparação com águas quentes, tornando as áreas polares particularmente suscetíveis a esse fenômeno.",
+      "informacoesGuia": [
+        "Gases que se dissolvem em líquidos e como a temperatura afeta essa solubilidade",
+        "Geração de ácido carbônico e equilíbrio do carbonato",
+        "Organismos que produzem cálcio e seu lugar na teia alimentar"
+      ],
+      "causas": [
+        "Mais CO2 no ar: mais absorvido pelos oceanos, mais acidificação.",
+        "Os gases se dissolvem mais facilmente em água fria: por essa razão, a questão é mais grave em áreas polares do que em águas tropicais.",
+        "Redução do carbonato disponível: a reação química que captura o CO2 utiliza o carbonato necessário para que os organismos formem conchas e esqueletos."
+      ],
+      "pista": "Guie os cientistas a considerar quem na cadeia alimentar depende diretamente de conchas e esqueletos de carbonato. Explore a conexão entre a temperatura quente/fria e a absorção de gás."
+    }
+  },
+  {
+    "id": "L1",
+    "codigo": "L1",
+    "nome": "Branqueamento de Corais",
     "area": "litoranea",
-    "efeito": "Avance +1 no Colapso. Equipamentos metálicos corroem: um item do grupo fica inutilizável até ser restaurado."
+    "icone": "🪸",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Um grupo de pesquisadores de recifes retorna de um mergulho com uma notícia preocupante: grandes trechos do recife, antes repletos de cores, agora apresentam uma aparência esbranquiçada. Peixes que utilizavam aquela estrutura para se esconder e encontrar alimento estão cada vez mais raros na região. Próxima ao recife de corais, uma indústria farmacêutica começou recentemente suas atividades. Os pesquisadores decidem analisar as condições da água e encontram alterações em alguns de seus parâmetros.",
+      "pergunta": "Quais alterações no ambiente podem estar provocando o branqueamento dos corais e como esse fenômeno pode afetar os organismos que dependem do recife?"
+    },
+    "mestre": {
+      "oQueAcontece": "Os corais mantêm uma relação de simbiose com as zooxantelas, que são algas microscópicas que habitam seus tecidos e que, por meio da fotossíntese, fornecem cor e a maior parte de sua energia. Quando a temperatura da água ultrapassa o limite que os corais conseguem suportar, eles ficam estressados e expulsam as algas, um processo conhecido como branqueamento. Sem elas, o coral perde sua fonte de energia mais importante, se torna mais suscetível a doenças e pode morrer se o estresse térmico continuar.",
+      "informacoesGuia": [
+        "Transferência de calor e limites de tolerância térmica",
+        "Simbiose e fotossíntese das zooxantelas",
+        "Acidificação do oceano pelo excesso de CO2 dissolvido, que fragiliza o esqueleto de carbonato de cálcio"
+      ],
+      "causas": [
+        "Ondas de calor oceânicas: períodos em que a temperatura da água do mar atinge níveis anormalmente elevados, cada vez mais comuns devido ao aquecimento global.",
+        "Água ácida: O CO2 dissolvido diminui a quantidade de carbonato de cálcio, o que torna mais difícil para os corais formar e manter seus esqueletos.",
+        "Poluição costeira adicional: sedimentos e nutrientes em excesso (provenientes de esgoto) agravam o estresse nos corais, tornando-os mais suscetíveis ao calor."
+      ],
+      "pista": "Pergunte por que a ausência das algas simbióticas resulta no branqueamento do coral. Conduza os cientistas a refletir sobre a interação entre o calor e a acidez, em vez de analisá-los de forma isolada. Os corais estão apenas mudando de cor, ou há outras mudanças no ambiente que os rodeia?"
+    }
   },
   {
-    "id": "desastre-03",
-    "nome": "Silêncio das Folhas",
-    "descricao": "Os insetos param. As árvores perdem o verde de dentro para fora. Um fungo luminoso toma o sub-bosque em horas.",
-    "icone": "🍄",
-    "area": "mata",
-    "efeito": "Avance +1 no Colapso. Visibilidade reduzida na mata. Qualquer Procurar nesta área exige um teste extra."
+    "id": "L2",
+    "codigo": "L2",
+    "nome": "Vazamento de Óleo no Mar",
+    "area": "litoranea",
+    "icone": "🛢️",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Um alerta chega em cima da hora: um navio teve uma falha e o óleo começa a vazar próximo à costa. Em poucas horas, uma mancha escura e brilhante se espalha sobre a água, avançando em direção a uma área onde aves marinhas costumam se alimentar. Alguns pescadores locais relatam ter visto peixes boiando, desorientados. O tempo é curto, quanto mais a mancha se espalha, mais difícil (e mais caro) será conter o estrago."
+    },
+    "mestre": {
+      "oQueAcontece": "O petróleo, por ser menos denso que a água e não se misturar a ela, flutua e se espalha rapidamente sobre a superfície, criando uma camada que impede a entrada de luz e oxigênio. Aves e mamíferos marinhos que se contaminam com óleo deixam de se isolar termicamente (perdas de penas e pelos encharcados) e podem morrer por hipotermia sem sequer ingerir o óleo.",
+      "informacoesGuia": [
+        "Densidade e insolubilidade do petróleo em água",
+        "Toxicidade dos hidrocarbonetos para organismos marinhos",
+        "Termorregulação de aves e mamíferos marinhos e impacto da perda do isolamento térmico"
+      ],
+      "causas": [
+        "Defeitos em navios ou plataformas: Quebras de tanques, tubulações ou válvulas durante o transporte ou extração de petróleo.",
+        "Falta ou atraso na implementação de barreiras de contenção: sem uma contenção física imediata, a mancha se propaga mais rapidamente do que as equipes conseguem reagir.",
+        "Condições de mar e vento adversas: correntes e ventos fortes tornam muito mais difícil conter o óleo, pois o espalham rapidamente."
+      ],
+      "pista": "Pergunte por que o óleo não se mistura com a água, mas flutua e se espalha. Leve os cienstias a refletir sobre o que ocorre com uma ave coberta de óleo e por que isso pode levá-la à morte mesmo na ausência de ingerir."
+    },
+    "perigo": {
+      "codigo": "V4",
+      "nome": "Contato Direto com Óleo Derramado",
+      "descricao": "Ao tentar conter o vazamento, o personagem entra em contato com o óleo.",
+      "efeito": "Sem equipamento de proteção, sofre penalidade até gastar uma ação se descontaminando."
+    }
   },
   {
-    "id": "desastre-04",
-    "nome": "Tempestade de Sal",
-    "descricao": "O vento arrasta cristais do solo ressecado. A pele arde. Circuitos e pulmões sofrem igualmente.",
-    "icone": "🏜️",
+    "id": "L3",
+    "codigo": "L3",
+    "nome": "Maré Vermelha: Floração de Algas Nocivas",
+    "area": "litoranea",
+    "icone": "🔴",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "A água perto da costa muda de cor: um tom avermelhado-amarronzado toma conta da superfície em poucos dias. Peixes começam a aparecer mortos na praia, e alguns moradores relatam irritação nos olhos ao se aproximar da água. Um pescador local comenta que \"isso já aconteceu antes, depois que choveu muito e a lavoura vizinha adubou o campo\".",
+      "pergunta": "O que pode estar provocando a mudança na cor da água e a morte dos peixes?"
+    },
+    "mestre": {
+      "oQueAcontece": "Chuvas fortes transportam excesso de nutrientes (nitrogênio e fósforo, que vêm de fertilizantes agrícolas e esgoto) para o mar. Esses nutrientes são responsáveis por uma proliferação grande de algas microscópicas, conhecida como floração de algas nocivas. Quando essas algas morrem em grandes quantidades, bactérias decompositoras consomem a maior parte do oxigênio dissolvido na água, criando uma \"zona morta\" onde peixes e outros organismos sufocam. Algumas das espécies de algas envolvidas também produzem toxinas.",
+      "informacoesGuia": [
+        "Ciclo de nutrientes (nitrogênio e fósforo) e eutrofização.",
+        "Crescimento populacional explosivo de microrganismos.",
+        "Consumo de oxigênio dissolvido na decomposição e estratificação da água por temperatura/densidade."
+      ],
+      "causas": [
+        "Escoamento agrícola: Chuvas carregam fertilizantes das lavouras próximas para rios e depois para o mar."
+      ],
+      "pista": "Por que decompor tanta alga morta de uma vez consome tanto oxigênio da água? Oriente os cientistas a relacionar a chuva recente, a plantação próxima e a alteração na cor da água."
+    }
+  },
+  {
+    "id": "L4",
+    "codigo": "L4",
+    "nome": "Ressaca e Enchente Costeira",
+    "area": "litoranea",
+    "icone": "🌊",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Uma tempestade forte se aproxima da costa, e as ondas já estão maiores do que o normal para essa época. Moradores relatam que a água salgada está invadindo poços que antes forneciam água doce para consumo. Parte de uma faixa de manguezal que protegia a vila foi destruída em uma tempestade anterior, e agora a água avança mais longe do que costumava.",
+      "pergunta": "Por que os manguezais funcionam como barreira natural contra esse tipo de evento? O que pode ser feito antes da próxima tempestade?"
+    },
+    "mestre": {
+      "oQueAcontece": "Tempestades, juntamente com o aumento do nível do mar, causam ressacas que vão além das marcações históricas da costa, erodindo as praias e empurrando água do mar para dentro de lençóis freáticos que são utilizados para consumo humano e para a agricultura, em um processo conhecido como intrusão salina. Regiões que perderam sua vegetação costeira (como manguezais e dunas), que geralmente servem para atenuar o impacto das ondas, ficam ainda mais vulneráveis.",
+      "informacoesGuia": [
+        "Dinâmica de ondas, marés e energia de impacto na costa.",
+        "Intrusão salina e alteração da química da água doce subterrânea.",
+        "Função protetora de manguezais e dunas como barreiras naturais."
+      ],
+      "causas": [
+        "Subida do nível do mar: associada ao derretimento das calotas polares e à expansão térmica das águas oceânicas devido ao aquecimento global.",
+        "Retirada da vegetação litorânea: O desmatamento de manguezais e a destruição de dunas para edificações removem a proteção natural que diminui o impacto de ondas e ressacas.",
+        "Urbanização da costa: edificações junto à linha da praia atrapalham o fluxo natural de sedimentos, intensificando a erosão em alguns lugares."
+      ],
+      "pista": "Pergunte por que os manguezais funcionam como uma 'barreira natural' contra esse tipo de evento. Guie a pensar no que acontece com a água doce de um poço quando a água salgada se infiltra nele."
+    },
+    "perigo": {
+      "codigo": "V2",
+      "nome": "Ferimento por Detritos",
+      "descricao": "Ao se mover por uma área com enchente, o cientista se machuca.",
+      "efeito": "Impossibilitados de resolver uma carta de desastre sem lidarem com isso primeiro."
+    }
+  },
+  {
+    "id": "S1",
+    "codigo": "S1",
+    "nome": "Incêndio em Vegetação de Seca",
     "area": "seca",
-    "efeito": "Avance +1 no Colapso. Ninguém pode descansar neste turno. Água consumida não recupera esforço."
+    "icone": "🔥",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "O céu fica cinzento no horizonte, e o cheiro de fumaça chega antes mesmo de qualquer chama ser vista. A vegetação seca da região, que já passou meses sem chuva significativa, queima com uma velocidade impressionante. Um grupo de tatus foi visto fugindo em disparada de uma área que, minutos depois, virou um mar de fogo. Ventos fortes carregam fagulhas para além da linha que os brigadistas locais tentavam segurar. Os cientistas precisam agir rápido, tanto para conter o fogo quanto para entender por que ele se espalhou tão rapidamente."
+    },
+    "mestre": {
+      "oQueAcontece": "Plantas de áreas secas acumulam material vegetal ressecado com umidade extremamente baixa, que é muito inflamável. Quando começa, o fogo avança rapidamente por meio da radiação e da convecção do calor, especialmente com a ajuda do vento. Quando a vegetação é queimada, ela emite CO2 e outros gases, e ainda mata animais que não conseguem escapar de seus lares a tempo.",
+      "informacoesGuia": [
+        "Transferência de calor por radiação e convecção, e o papel do vento na propagação do fogo",
+        "Reação de combustão e liberação de CO2/material particulado",
+        "Impacto na fauna e flora nativas, e resiliência de certas espécies ao fogo"
+      ],
+      "causas": [
+        "Períodos prolongados de seca: diminuem enormemente a umidade da vegetação, tornando-a mais suscetível a incêndios.",
+        "Ação humana: queimadas de 'limpeza' de terreno ou para renovação de pastagem que se tornam descontroladas.",
+        "Ventos intensos e a topografia: aumentam a velocidade de propagação do fogo e tornam difícil a criação de aceiros eficientes."
+      ],
+      "pista": "Questione quais são os três componentes do 'triângulo do fogo' (calor, combustível, oxigênio) e qual deles é mais viável de eliminar nessa área. Oriente os cientistas a considerar de que maneira o vento afeta tanto a velocidade quanto a direção do fogo."
+    },
+    "perigo": {
+      "codigo": "V2",
+      "nome": "Ferimento por Detritos",
+      "descricao": "Ao se mover por uma área com incêndio o cientista se machuca.",
+      "efeito": "Impossibilitados de resolver uma carta de desastre sem lidarem com isso primeiro."
+    }
   },
   {
-    "id": "desastre-05",
-    "nome": "Apagão Entálpico",
-    "descricao": "A rede da cidade oscila. Lâmpadas estouram em sequência. O calor residual dos transformadores sobe como neblina.",
+    "id": "S2",
+    "codigo": "S2",
+    "nome": "Colapso do Sistema Hidrelétrico",
+    "area": "seca",
     "icone": "⚡",
-    "area": "cidade",
-    "efeito": "Avance +1 no Colapso. Comunicação e iluminação urbanas falham até o fim da cena."
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Os níveis dos reservatórios continuam caindo, e a geração de energia da usina que abastece a região está cada vez mais instável. Operadores relatam apagões intermitentes em cidades vizinhas. Um pescador observa que a água do reservatório está mais turva e concentrada do que o normal, e alguns peixes apareceram mortos perto de uma margem que, meses atrás, estava totalmente submersa. Os cientistas precisam entender a relação entre a seca, a energia e a qualidade da água antes que o problema se agrave ainda mais."
+    },
+    "mestre": {
+      "oQueAcontece": "A produção de energia hidrelétrica está diretamente ligada à quantidade de água armazenada e à pressão com que ela cai sobre as turbinas. Quando a seca se estende, os reservatórios perdem volume e a geração cai. Além disso, com uma quantidade reduzida de água para diluir sedimentos, nutrientes e poluentes, a concentração dessas substâncias aumenta, o que compromete a qualidade da água e prejudica a vida aquática que dela depende.",
+      "informacoesGuia": [
+        "Conversão de energia potencial gravitacional em energia elétrica.",
+        "Concentração de substâncias dissolvidas em função do volume de água (efeito de diluição).",
+        "Impacto da redução do habitat aquático e da qualidade da água sobre peixes e outros organismos."
+      ],
+      "causas": [
+        "Estiagens prolongadas: longos períodos sem chuvas relevantes diminuem a recarga natural dos reservatórios.",
+        "Grande dependência de uma única fonte de energia: quando um sistema depende quase que totalmente de hidrelétricas, ele se torna mais suscetível a mudanças climáticas.",
+        "Consumo elevado de água a montante: a captação para irrigação e abastecimento diminui ainda mais a quantidade que chega ao reservatório."
+      ],
+      "pista": "Questione o motivo pelo qual a quantidade de água armazenada influencia diretamente a energia produzida. Conduza os cientistas a refletir sobre o que ocorre com a concentração de poluentes quando o nível de água cai, mas a quantidade de poluentes continua a mesma."
+    }
   },
   {
-    "id": "desastre-06",
-    "nome": "Ressonância do Cofre",
-    "descricao": "Um zumbido grave atravessa todos os biomas ao mesmo tempo. Vidro treme. Animais fogem numa só direção.",
-    "icone": "📡",
+    "id": "S3",
+    "codigo": "S3",
+    "nome": "Salinização e Desertificação do Solo",
+    "area": "seca",
+    "icone": "🏜️",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Os agricultores da região notam algo estranho: uma crosta esbranquiçada cobre partes do solo antes fértil, e as plantações mais próximas do sistema de irrigação estão murchando, mesmo recebendo água regularmente. Um produtor mais antigo comenta que 'esse solo já rendeu muito mais antes.' Amostras de terra mostram uma concentração de sais muito acima do esperado.",
+      "pergunta": "Por que irrigar um solo, em vez de ajudar, está piorando a situação?"
+    },
+    "mestre": {
+      "oQueAcontece": "Em regiões áridas e semiáridas, a irrigação intensiva sem o devido sistema de drenagem permite que a água se infiltre e, em seguida, evapore rapidamente na superfície devido às altas temperaturas, deixando os sais minerais dissolvidos para trás. Com o passar do tempo, esses sais se concentram na superfície do solo, mudando seu pH e dificultando que as raízes das plantas consigam absorver água e nutrientes.",
+      "informacoesGuia": [
+        "A capilaridade se deve à interação entre a água e as superfícies do solo e à coesão entre as moléculas de água. Em alguns tipos de solo, particularmente quando os poros são pequenos, essas forças favorecem o fluxo de água através dos poros, mesmo que isso signifique que a água está se movendo em direção à superfície. Em um clima quente e seco, a água que atinge a superfície evapora com rapidez. Isso pode estimular um movimento constante de água das áreas mais profundas para as que estão mais próximas da superfície, devido à capilaridade.",
+        "Acúmulo de sais minerais e alteração do pH do solo.",
+        "Efeito da salinidade sobre a germinação e a absorção de água pelas raízes das plantas."
+      ],
+      "causas": [
+        "Irrigação em excesso sem drenagem: a água que foi aplicada em excesso não escoa de forma adequada, o que favorece a evaporação na superfície e o acúmulo de sais.",
+        "Água com alto teor de sais minerais: em função da origem (por exemplo, poços profundos), a água de irrigação já pode conter uma alta concentração de sais.",
+        "Clima árido: O calor intenso aumenta a taxa de evaporação, fazendo com que os sais se acumulem ainda mais na superfície do solo."
+      ],
+      "pista": "Questione por que a água \"desaparece\" tão rapidamente em condições de calor e ar seco, e o que permanece quando ela evapora. Oriente os cientistas a considerar de que maneira isso influencia a capacidade da planta de absorver água por meio das raízes."
+    }
+  },
+  {
+    "id": "S4",
+    "codigo": "S4",
+    "nome": "Onda de Calor e Estresse Térmico na Fauna",
+    "area": "seca",
+    "icone": "🌡️",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "O termômetro da estação de pesquisa registra uma temperatura recorde para a região, e o terceiro dia seguido acima dos 40°C está cobrando seu preço. Um grupo de aves foi encontrado ofegante à sombra de uma árvore, incapaz de voar. Um pequeno mamífero foi resgatado em estado de letargia perto de uma poça quase seca. Os poucos corpos d'água que restam na área estão cada vez mais concentrados de animais disputando espaço.",
+      "pergunta": "Como o aumento extremo da temperatura pode afetar a capacidade dos animais de controlar sua temperatura corporal e, ao mesmo tempo, alterar a disponibilidade de água e as relações entre as espécies?"
+    },
+    "mestre": {
+      "oQueAcontece": "Animais regulam sua temperatura corporal de formas variadas, mas esses mecanismos têm limites. Em situações de ondas de calor intenso, junto à falta de água, muitas espécies não conseguem se livrar do calor excessivo, nem reabastecer a água que perderam, levando à desidratação e ao desequilíbrio eletrolítico. A presença de muitos animais em um número reduzido de fontes de água ainda disponíveis eleva a competição e o risco de propagação de doenças.",
+      "informacoesGuia": [
+        "Mecanismos físicos de troca de calor entre o corpo e o ambiente (radiação, convecção, evaporação).",
+        "Equilíbrio hidroeletrolítico e desidratação.",
+        "Termorregulação animal, comportamento de busca por sombra/água e competição por recursos escassos."
+      ],
+      "causas": [
+        "Ondas de calor cada vez mais frequentes e intensas: em função das alterações climáticas, vão além dos limites fisiológicos de tolerância de diversas espécies.",
+        "Falta de pontos de água: A seca elimina quase todos os locais de água para consumo e para refresco.",
+        "Eliminação de refúgios térmicos: O desmatamento e a degradação da vegetação eliminam esses locais de descanso térmico para a fauna."
+      ],
+      "pista": "Questione quais métodos um animal utiliza para 'dissipar calor' e por que se aproximar de uma poça contribui para isso. Conduza os cientistas a refletir sobre os efeitos no corpo resultantes da perda simultânea de água e eletrólitos."
+    }
+  },
+  {
+    "id": "M1",
+    "codigo": "M1",
+    "nome": "Incêndio Florestal",
+    "area": "mata",
+    "icone": "🔥",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "A fumaça começa a subir de um ponto da floresta onde, dias antes, uma área havia sido derrubada para abertura de pasto. O que deveria ser uma queima controlada saiu do controle com a virada do vento. Uma onça-pintada foi avistada se afastando apressada de sua área de caça habitual. Sensores de satélite captam múltiplos focos de calor se espalhando ao longo da margem da floresta. A equipe precisa agir antes que o fogo avance para dentro da mata fechada, onde seria muito mais difícil de conter.",
+      "pergunta": "O que está fazendo o fogo avançar tão rapidamente? Considerando o vento, a vegetação disponível e as condições da área, quais fatores podem estar favorecendo sua propagação e como isso pode afetar a biodiversidade?"
+    },
+    "mestre": {
+      "oQueAcontece": "Ao contrário do incêndio em vegetação seca, o incêndio florestal geralmente começa em áreas desmatadas ou em queimadas de 'limpeza' de terreno que saem do controle e se espalham para a floresta. Quando a vegetação queima, o carbono que estava armazenado nas árvores por décadas é liberado, e isso ainda elimina o habitat de grandes espécies que precisam de vastas áreas de floresta para sobreviver.",
+      "informacoesGuia": [
+        "Propagação do calor e influência do vento na direção do fogo (Física)",
+        "Combustão da biomassa florestal e liberação de carbono estocado (Química)",
+        "Impacto sobre espécies de grande porte e fragmentação de seu habitat (Biologia)"
+      ],
+      "causas": [
+        "Queimadas para desmatamento: método utilizado para transformar a floresta em pastagem ou cultivo, que pode se tornar incontrolável em dias secos e com vento forte.",
+        "Desmatamento prévio: as bordas das áreas desmatadas tornam-se mais secas e suscetíveis ao fogo em comparação com o interior da floresta densa, agindo como um ponto de ignição para incêndios.",
+        "Falta de supervisão: A falta de vigilância e ação imediata faz com que pequenos problemas cresçam descontroladamente."
+      ],
+      "pista": "Pergunte para onde o carbono que estava 'armazenado' na árvore vai quando ela é queimada. Conduza os cientistas a refletir sobre a razão pela qual as bordas de uma floresta desmatada queimam com mais facilidade do que o interior."
+    }
+  },
+  {
+    "id": "M2",
+    "codigo": "M2",
+    "nome": "Praga Silenciosa na Vegetação",
+    "area": "mata",
+    "icone": "🌿",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Uma área da floresta que antes tinha vegetação diversa agora está quase completamente coberta por uma única espécie de planta, alta e de crescimento rápido. Sob suas folhas, o solo está praticamente vazio, nenhuma muda nativa consegue crescer ali. Um cientista nota que, mesmo em áreas próximas onde há luz solar suficiente, as sementes nativas plantadas experimentalmente não germinam. A equipe precisa descobrir o que essa planta está fazendo com o solo ao seu redor além de simplesmente 'ocupar espaço.'",
+      "pergunta": "Quais fatores podem explicar a dificuldade de outras plantas se estabelecerem nessa área, mesmo quando as condições parecem adequadas para seu crescimento?"
+    },
+    "mestre": {
+      "oQueAcontece": "Certas plantas invasoras não apenas disputam luz, água e nutrientes; elas também excretam (ou liberam) substâncias químicas (aleloquímicos) nas raízes ou folhas em decomposição, que impedem outras plantas de germinar e crescer ao seu redor. Esse fenômeno, conhecido como alelopatia, confere à espécie invasora uma vantagem competitiva extra, facilitando sua rápida dominação de uma área.",
+      "informacoesGuia": [
+        "Captação de energia luminosa na fotossíntese e competição por luz",
+        "Aleloquímicos, substâncias que inibem a germinação de outras plantas",
+        "Sucessão ecológica e perda de diversidade vegetal nativa"
+      ],
+      "causas": [
+        "Introdução não intencional ou intencional da espécie: Sementes ou plantas introduzidas por ação humana (decoração, comércio, poluição de solos transportados) sem uma avaliação de risco.",
+        "Falta de predadores ou competidores naturais: No novo habitat, a planta invasora não encontra os herbívoros ou patógenos que, em sua terra natal, controlariam seu crescimento.",
+        "Liberação de aleloquímicos no solo: Confere à planta invasora uma vantagem química imediata em relação às espécies nativas, além da vantagem competitiva por acesso à luz e espaço."
+      ],
+      "pista": "Questione por que as sementes nativas não brotam, mesmo com a luz solar adequada na região. Oriente os cientistas a refletir sobre a distinção entre 'competir por espaço' e 'impedir' o crescimento de uma outra planta."
+    },
+    "perigo": {
+      "codigo": "V1",
+      "nome": "Queda em Terreno Instável",
+      "descricao": "Os cientistas escorregam em uma encosta quando vão investigar a planta.",
+      "efeito": "Se falhar no teste de dado, perde a próxima ação."
+    }
+  },
+  {
+    "id": "M3",
+    "codigo": "M3",
+    "nome": "Rio Contaminado",
+    "area": "mata",
+    "icone": "☣️",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Pescadores da comunidade ribeirinha Vale do Ribeira relatam que os peixes andam com um comportamento estranho, e alguns aparecem com deformidades nunca vistas antes. Um morador mais velho lembra que 'isso já aconteceu rio acima, há anos, e demorou muito para a água voltar ao normal.'",
+      "pergunta": "Quais mudanças nas condições do rio poderiam explicar as alterações observadas nos peixes, e como a equipe poderia rastrear a origem dessas mudanças?"
+    },
+    "mestre": {
+      "oQueAcontece": "A mineração pode despejar resíduos carregados de metais pesados (como mercúrio e chumbo) em rios, sem passar por nenhum tratamento. Ao contrário de vários poluentes orgânicos, os metais pesados não se decompõem na natureza. Em vez disso, eles se acumulam nos organismos através da cadeia alimentar, em um processo conhecido como bioacumulação. A força do rio também leva sedimentos poluídos para lugares cada vez mais longe.",
+      "informacoesGuia": [
+        "Transporte de sedimentos pela correnteza do rio",
+        "Toxicidade e não degradabilidade dos metais pesados",
+        "Bioacumulação e biomagnificação ao longo da cadeia alimentar"
+      ],
+      "causas": [
+        "Lançamento de rejeitos de mineração não tratados: rejeitos metálicos pesados despejados diretamente ou vertidos no rio.",
+        "Desproteção e erosão de áreas minerárias: chuvas arrastam sedimentos poluídos para o leito do rio.",
+        "Falta de barreiras de contenção: sem barreiras físicas, a correnteza leva a poluição para baixo, alcançando regiões cada vez mais longe da origem."
+      ],
+      "pista": "Questione por que um metal pesado se torna mais concentrado à medida que se avança na cadeia alimentar. Leve os cientistas a refletir sobre a maneira como a correnteza do rio carrega o problema para longe de sua origem."
+    }
+  },
+  {
+    "id": "M4",
+    "codigo": "M4",
+    "nome": "Fragmentação de Habitat",
+    "area": "mata",
+    "icone": "🛣️",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Um novo trecho de estrada corta a floresta ao meio, e o que antes era uma grande área contínua agora está dividido em dois fragmentos isolados. Pesquisadores notam que, perto da estrada, as árvores estão mais secas e há muito mais luz chegando ao chão do que no interior da mata. Um grupo de macacos que vivia livremente entre as duas áreas não consegue mais atravessar com segurança. Alguns animais de território maior somem completamente dos registros de câmeras-armadilha instaladas na borda.",
+      "pergunta": "Por que a divisão de uma área de floresta pode afetar os animais e a vegetação mesmo quando ainda existe uma quantidade significativa de mata?"
+    },
+    "mestre": {
+      "oQueAcontece": "Quando uma floresta densa é interrompida por estradas, plantações ou desmatamento, ela se divide em ilhas isoladas. Às margens desses fragmentos, o microclima se transforma: há mais luz, vento e calor, e a umidade do ar e do solo diminui, um fenômeno conhecido como efeito de borda. Espécies que necessitam de grandes áreas ou que dependem do interior úmido e sombreados da floresta acabam sendo isoladas em espaços que são pequenos demais para manter populações saudáveis, resultando em uma diminuição da diversidade genética.",
+      "informacoesGuia": [
+        "Alteração do microclima nas bordas — luz, vento, temperatura e umidade",
+        "Mudança na composição química e umidade do solo na borda da floresta",
+        "Fragmentação de habitat, isolamento genético e necessidade de território de grandes espécies"
+      ],
+      "causas": [
+        "Estradas e infraestrutura: criam barreiras físicas que separam comunidades que antes eram unidas.",
+        "Desmatamento localizado (em vez de contínuo): produz fragmentos menores e com mais bordas expostas em relação à área remanescente total.",
+        "Falta de corredores ecológicos: espécies não conseguem se mover entre fragmentos para encontrar recursos ou parceiros reprodutivos."
+      ],
+      "pista": "Questione por que a borda de um pedaço de floresta é mais seca e iluminada do que seu interior. Oriente a refletir sobre as consequências do isolamento de uma população de animais em uma área restrita ao longo de várias gerações."
+    }
+  },
+  {
+    "id": "C1",
+    "codigo": "C1",
+    "nome": "Ar Denso: Poluição Atmosférica",
     "area": "cidade",
-    "efeito": "Avance +1 na Proximidade do Cofre e +1 no Colapso. O mestre revela uma pista obrigatória."
+    "icone": "🏭",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Um alerta de qualidade do ar é emitido pela primeira vez em meses: a visibilidade caiu, e um cheiro leve de fumaça química paira sobre os bairros mais próximos da região industrial. Escolas relatam aumento no número de crianças com dificuldade para respirar. Em uma praça próxima, as folhas de várias árvores apresentam manchas amareladas incomuns.",
+      "pergunta": "Quais mudanças no ambiente poderiam explicar a redução da visibilidade, os problemas respiratórios e as alterações observadas nas plantas?"
+    },
+    "mestre": {
+      "oQueAcontece": "Gases de escapamento de veículos, fábricas e combustíveis fósseis queimados emitem para a atmosfera uma combinação de gases (CO2, SO2, NOx) e partículas. Alguns desses poluentes reagem à luz do sol, produzindo ozônio troposférico, um gás que é tóxico para os pulmões e também danifica a fotossíntese e os tecidos das folhas das plantas urbanas, levando às manchas.",
+      "informacoesGuia": [
+        "Dispersão de gases e material particulado na atmosfera",
+        "Formação de ozônio troposférico e reações fotoquímicas com luz solar",
+        "Efeitos sobre o sistema respiratório de seres vivos e sobre o tecido foliar das plantas"
+      ],
+      "causas": [
+        "Emissões de carros e indústrias: A queima de combustíveis fósseis libera constantemente gases poluentes na atmosfera das cidades.",
+        "Condições atmosféricas de baixa dispersão: dias sem vento ou com inversão térmica que não permitem a dispersão dos poluentes, fazendo com que eles fiquem acumulados perto do solo.",
+        "Falta de áreas verdes adequadas: com menos plantas, há uma redução na filtragem natural do ar e na absorção de CO2 e poluentes."
+      ],
+      "pista": "Questione sobre as reações químicas que ocorrem quando poluentes interagem com a luz solar para gerar ozônio na troposfera. Oriente a refletir sobre por que um dia sem vento pode ser mais prejudicial à qualidade do ar do que um dia com vento."
+    },
+    "perigo": {
+      "codigo": "V3",
+      "nome": "Exposição à Chuva Ácida",
+      "descricao": "O cientista é surpreendido por chuva ácida ao se mover pela região de Cidade sem proteção.",
+      "efeito": "Impossibilitados de resolver uma carta de desastre sem lidarem com isso primeiro."
+    }
+  },
+  {
+    "id": "C2",
+    "codigo": "C2",
+    "nome": "Enchente Urbana",
+    "area": "cidade",
+    "icone": "🌧️",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "A chuva forte não parece tão diferente de outras que a cidade já enfrentou, mas dessa vez a água sobe muito mais rápido nas ruas do centro. Bueiros entopem, e a água começa a invadir casas e comércios. Um morador relata um cheiro forte de esgoto misturado à água parada. Dias depois da chuva parar, ainda há poças estagnadas em vários pontos, e casos de doença começam a aparecer nos postos de saúde da região.",
+      "pergunta": "Por que a mesma quantidade de chuva pode provocar impactos tão diferentes em uma cidade, e o que pode acontecer com a água quando ela não consegue seguir seu caminho natural?"
+    },
+    "mestre": {
+      "oQueAcontece": "A impermeabilização do solo bloqueia a infiltração da água da chuva, que se acumula e escoa rapidamente pelas ruas, sobrecarregando o sistema de drenagem, muitas vezes piorado pelo entulho que obstrui os bueiros. Essa água de cheia muitas vezes se combina com esgoto e outros poluentes da cidade. Água acumulada por vários dias também favorece o crescimento de mosquitos transmissores de doenças e bactérias.",
+      "informacoesGuia": [
+        "Escoamento superficial e capacidade de infiltração do solo",
+        "Contaminação da água por mistura com esgoto e poluentes urbanos",
+        "Proliferação de vetores de doenças (mosquitos, bactérias) em água parada"
+      ],
+      "causas": [
+        "Solo excessivamente impermeabilizado: O asfalto e o concreto tomam o lugar de áreas que antes permitiam a infiltração, bloqueando a absorção natural da água.",
+        "Sistema de drenagem subdimensionado ou obstruído: bueiros entupidos com lixo diminuem o escoamento na cidade.",
+        "Construções em áreas de várzea e fundo de vale: A edificação em locais que são naturalmente reservados para o escoamento de água eleva o risco de alagamentos."
+      ],
+      "pista": "Pergunte por que uma área de floresta absorve a água da chuva de maneira diferente do que uma rua asfaltada. Leve os cientistas a considerar as consequências da mistura entre água de enchente e esgoto, e por que isso se torna uma questão de saúde pública."
+    }
+  },
+  {
+    "id": "C3",
+    "codigo": "C3",
+    "nome": "Apagão: Falta de Energia",
+    "area": "cidade",
+    "icone": "💡",
+    "aumentoColapso": 1,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "A energia cai simultaneamente em vários bairros, e o hospital da região precisa acionar seu gerador de emergência. Semáforos apagam, criando caos no trânsito. Em um mercado local, alimentos refrigerados começam a perder a temperatura ideal de conservação. Horas depois, moradores relatam um cheiro de diesel vindo dos geradores de emergência que várias empresas ligaram ao mesmo tempo. Os cientistas precisam entender por que a energia faltou e lidar com as consequências imediatas antes que se agravem."
+    },
+    "mestre": {
+      "oQueAcontece": "A demanda por energia elétrica pode exceder a capacidade da rede de gerar e distribuir energia, seja por sobrecarga, falha técnica ou uma diminuição na geração (por exemplo, durante uma seca que afete as hidrelétricas). Essa energia é fundamental, por exemplo, para o funcionamento de hospitais, de sistemas de refrigeração de alimentos e vacinas, e até de semáforos. Para uma solução imediata, frequentemente são usados geradores a diesel, os quais, embora resolvam a questão elétrica, acrescentam ainda mais poluição química ao ar já contaminado da cidade.",
+      "informacoesGuia": [
+        "Geração, transmissão e sobrecarga de sistemas elétricos",
+        "Emissões da queima de diesel em geradores de emergência",
+        "Impacto da interrupção da cadeia de frio sobre alimentos, vacinas e medicamentos"
+      ],
+      "causas": [
+        "Sobrecarregar o sistema elétrico: consumir mais do que o planejado, especialmente durante os momentos de maior demanda (como em ondas de calor, por exemplo).",
+        "Menos energia gerada: falhas na principal fonte de geração da área (como o baixo nível de reservatórios hidrelétricos).",
+        "Falta de backup no sistema: não há fontes de energia suplementares à rede principal durante crises."
+      ],
+      "pista": "Pergunte em quais áreas da cidade a falta de energia é mais sentida e por qual motivo. Oriente a refletir sobre os problemas que os geradores a diesel solucionam e sobre as inovações que eles introduzem simultaneamente."
+    }
+  },
+  {
+    "id": "C4",
+    "codigo": "C4",
+    "nome": "Usina de Energia Não Sustentável",
+    "area": "cidade",
+    "icone": "🏭",
+    "aumentoColapso": 2,
+    "irreversivel": false,
+    "jogador": {
+      "narrativa": "Para suprir o aumento na demanda de energia, a cidade autoriza a reativação de uma usina termelétrica próxima ao rio. Meses depois, pescadores notam que os peixes estão sumindo de um trecho específico, logo abaixo do ponto onde a usina despeja água usada em seu sistema de resfriamento. Um cientista mede a temperatura da água nesse ponto e se surpreende com a diferença em relação a pontos mais distantes. Ao mesmo tempo, moradores da região reclamam de um aumento na poluição do ar.",
+      "pergunta": "Os cientistas precisam entender as duas faces do problema que essa usina criou."
+    },
+    "mestre": {
+      "oQueAcontece": "A usina termelétrica queima carvão ou óleo combustível para produzir eletricidade, emitindo CO2 e outros poluentes que contribuem diretamente para a questão do ar carregado da cidade. Também, a água que resfria o sistema da usina volta ao rio com temperaturas superiores às que possuía, caracterizando a poluição térmica. Um aumento, ainda que mínimo, na temperatura da água pode diminuir o oxigênio dissolvido e ultrapassar o limite de tolerância de diversas espécies aquáticas.",
+      "informacoesGuia": [
+        "Transferência e dissipação de calor em corpos d'água",
+        "Combustão de combustíveis fósseis e emissões atmosféricas",
+        "Tolerância térmica de organismos aquáticos e relação entre temperatura e oxigênio dissolvido"
+      ],
+      "causas": [
+        "Fonte de energia de curto prazo: para lidar com picos de consumo, normalmente são usadas termelétricas, porque são mais rápidas para entrar em operação do que outras fontes.",
+        "Sistema de resfriamento de fluxo aberto: capta água de um rio para resfriar, depois a devolve ao mesmo rio com uma temperatura maior.",
+        "Falta de opções energéticas disponíveis: como não há outras fontes que possam atender à demanda imediata, a termelétrica é a alternativa mais viável em curto prazo."
+      ],
+      "pista": "Questione por que os peixes somem apenas nas proximidades do ponto onde a água de resfriamento é despejada, e não em todo o rio. Oriente a considerar como essa carta aborda a questão da falta de energia, mas ao mesmo tempo, gera dois novos problemas."
+    }
+  },
+  {
+    "id": "I1",
+    "codigo": "I1",
+    "nome": "Terremoto Repentino",
+    "area": "global",
+    "icone": "🌍",
+    "aumentoColapso": 1,
+    "irreversivel": true,
+    "jogador": {
+      "narrativa": "Um abalo sísmico atinge a região. É um evento da dinâmica geológica do planeta, fora do alcance de qualquer decisão científica imediata."
+    }
+  },
+  {
+    "id": "I2",
+    "codigo": "I2",
+    "nome": "Onda de Calor Extrema",
+    "area": "global",
+    "icone": "🌡️",
+    "aumentoColapso": 1,
+    "irreversivel": true,
+    "jogador": {
+      "narrativa": "Uma massa de ar excepcionalmente quente cobre a região por alguns dias. Está ligada ao aquecimento global de longo prazo, mas o evento em si, no momento em que ocorre, não pode ser revertido pelos personagens."
+    }
+  },
+  {
+    "id": "I3",
+    "codigo": "I3",
+    "nome": "Erupção Vulcânica Distante",
+    "area": "global",
+    "icone": "🌋",
+    "aumentoColapso": 1,
+    "irreversivel": true,
+    "jogador": {
+      "narrativa": "Cinzas de uma erupção distante alcançam a região, afetando a qualidade do ar e bloqueando parte da luz solar por um tempo. Evento geológico fora do controle humano direto."
+    }
+  },
+  {
+    "id": "I4",
+    "codigo": "I4",
+    "nome": "Tsunami Repentino",
+    "area": "global",
+    "icone": "🌊",
+    "aumentoColapso": 1,
+    "irreversivel": true,
+    "jogador": {
+      "narrativa": "Um deslocamento repentino no fundo do oceano provoca uma série de ondas que atinge a região costeira. A água avança rapidamente sobre áreas habitadas e ecossistemas próximos ao litoral. O evento ocorre em uma escala e velocidade que não permitem aos personagens impedir seus efeitos imediatos em todas as regiões."
+    }
+  },
+  {
+    "id": "I5",
+    "codigo": "I5",
+    "nome": "Tempestade Extrema",
+    "area": "global",
+    "icone": "⛈️",
+    "aumentoColapso": 1,
+    "irreversivel": true,
+    "jogador": {
+      "narrativa": "Uma tempestade de intensidade excepcional atinge a região, acompanhada por ventos muito fortes e chuvas intensas. Rios transbordam, árvores são derrubadas e estruturas são danificadas. Os cientistas podem apenas acompanhar os impactos enquanto o fenômeno atravessa a região."
+    }
+  },
+  {
+    "id": "I6",
+    "codigo": "I6",
+    "nome": "Deslizamento de Grande Escala",
+    "area": "global",
+    "icone": "⛰️",
+    "aumentoColapso": 1,
+    "irreversivel": true,
+    "jogador": {
+      "narrativa": "Após um período de chuvas intensas, uma grande massa de solo e rocha se desprende de uma encosta e desce rapidamente pela região. O movimento bloqueia caminhos e altera o curso de pequenos corpos d'água. Quando o deslizamento começa, não há tempo para os personagens impedirem sua ocorrência."
+    }
   }
 ]

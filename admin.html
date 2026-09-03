@@ -51,12 +51,25 @@
       <p id="log-vazio" class="empty-state">Nenhuma ação registrada ainda.</p>
     </section>
 
+    <!-- Consulta do mestre -->
+    <section class="panel panel-compact" aria-labelledby="titulo-consulta">
+      <details class="consulta-mestre" open>
+        <summary><h2 id="titulo-consulta">Consulta do mestre</h2></summary>
+        <div id="consulta-mestre-conteudo" class="consulta-mestre-conteudo"></div>
+      </details>
+    </section>
+
     <!-- Cartas de Desastre -->
     <section class="panel" aria-labelledby="titulo-desastre">
       <h2 id="titulo-desastre">Cartas de Desastre</h2>
       <div class="cartas-filtros" id="filtros-desastre">
-        <input type="search" id="busca-desastre" placeholder="Buscar por nome..." aria-label="Buscar cartas de desastre">
+        <input type="search" id="busca-desastre" placeholder="Buscar por nome ou código..." aria-label="Buscar cartas de desastre">
         <select id="filtro-area-desastre" aria-label="Filtrar por bioma"></select>
+        <select id="filtro-tipo-desastre" aria-label="Filtrar por tipo">
+          <option value="">Todas as cartas</option>
+          <option value="regional">Regionais</option>
+          <option value="irreversivel">Irreversíveis</option>
+        </select>
       </div>
       <div id="grid-desastre" class="cartas-grid"></div>
       <p id="empty-desastre" class="empty-state" hidden>Nenhuma carta de desastre cadastrada.</p>
@@ -68,7 +81,6 @@
       <h2 id="titulo-procurar">Cartas de Procurar</h2>
       <div class="cartas-filtros" id="filtros-procurar">
         <input type="search" id="busca-procurar" placeholder="Buscar por nome..." aria-label="Buscar cartas de procurar">
-        <select id="filtro-area-procurar" aria-label="Filtrar por bioma"></select>
         <select id="filtro-tipo-procurar" aria-label="Filtrar por tipo"></select>
       </div>
       <div id="grid-procurar" class="cartas-grid"></div>

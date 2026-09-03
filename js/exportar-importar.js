@@ -41,6 +41,7 @@ function initExportImport() {
           if (typeof renderMedidores === 'function') renderMedidores('admin');
           if (typeof renderLog === 'function') renderLog();
           if (typeof atualizarBotaoSom === 'function') atualizarBotaoSom();
+          if (typeof refreshGridsDesastre === 'function') refreshGridsDesastre();
 
           if (feedback) {
             feedback.textContent = 'Estado importado com sucesso.';

@@ -396,13 +396,17 @@ h2 { font-size: 1.25rem; color: var(--text); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  justify-content: flex-start;
+  padding: 2rem 1.5rem 3rem;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .publico-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
 }
 
 .publico-header span {
@@ -421,28 +425,147 @@ h2 { font-size: 1.25rem; color: var(--text); }
 .medidores-publico {
   width: 100%;
   max-width: 900px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.medidores-publico .gauge {
+  width: 180px;
+  height: 180px;
+}
+
+.medidores-publico .gauge-valor {
+  font-size: 3rem;
+}
+
+.medidores-publico .medidor-header h3 {
+  font-size: 1.25rem;
+}
+
+/* Cartas ativas no telão */
+.publico-cartas-ativas {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.publico-cartas-titulo {
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+.cartas-ativas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.carta-ativa-tile {
+  background: rgba(10, 14, 23, 0.55);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  cursor: pointer;
+  text-align: center;
+  color: var(--text);
+  font-family: inherit;
+  transition: transform 0.15s, box-shadow 0.15s;
+  backdrop-filter: blur(8px);
+}
+
+.carta-ativa-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.carta-ativa-destaque {
+  animation: pulso-ativa 1.5s ease-in-out infinite;
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.35);
+}
+
+@keyframes pulso-ativa {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.25); }
+  50% { box-shadow: 0 0 20px 6px rgba(139, 92, 246, 0.2); }
+}
+
+.carta-ativa-nome {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.modal-jogador {
+  text-align: left;
+  max-width: 720px;
+}
+
+.modal-jogador-titulo {
+  font-size: 1.75rem;
+  margin: 0.5rem 0 1rem;
+  text-align: center;
+}
+
+.modal-codigo-grande {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.modal-jogador-narrativa {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 1.5rem 0;
+}
+
+.modal-jogador-pergunta {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent-hover);
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.25rem;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 0 8px 8px 0;
+  line-height: 1.5;
+}
+
+.modal-jogador-irreversivel .modal-jogador-narrativa {
+  font-size: 1.2rem;
+}
+
+.aviso-irreversivel-telao {
+  text-align: center;
+  color: var(--danger);
+  font-weight: 600;
+  margin: 0.5rem 0 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.tag-grande {
+  display: inline-block;
+  font-size: 0.75rem;
+  margin: 0 auto 1rem;
+}
+
+.modal-publico {
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  text-align: left;
 }
 
 .medidores-publico .medidor-card {
   background: rgba(10, 14, 23, 0.45);
   border: 1px solid rgba(42, 53, 72, 0.6);
   backdrop-filter: blur(8px);
-  padding: 2rem;
-}
-
-.medidores-publico .gauge {
-  width: 220px;
-  height: 220px;
-}
-
-.medidores-publico .gauge-valor {
-  font-size: 3.5rem;
-}
-
-.medidores-publico .medidor-header h3 {
-  font-size: 1.25rem;
+  padding: 1.5rem;
 }
 
 /* ===== Cartas ===== */
@@ -492,6 +615,168 @@ h2 { font-size: 1.25rem; color: var(--text); }
 .carta:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow);
+}
+
+.carta-ativa {
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.4);
+}
+
+.carta-codigo {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.modal-codigo {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.modal-mestre {
+  text-align: left;
+  max-width: 640px;
+}
+
+.modal-mestre .modal-detalhe-nome {
+  text-align: center;
+}
+
+.modal-acoes-cartas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.bloco-jogador-preview {
+  background: rgba(74, 222, 128, 0.06);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.bloco-jogador-preview h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--biologia);
+}
+
+.pergunta-preview {
+  margin-top: 0.75rem;
+  color: var(--accent-hover);
+}
+
+.secao-mestre h4,
+.perigo-mestre h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 1rem 0 0.5rem;
+}
+
+.lista-mestre {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.lista-mestre li { margin-bottom: 0.35rem; }
+
+.pista-mestre {
+  background: rgba(251, 191, 36, 0.1);
+  border-left: 3px solid var(--warning);
+  padding: 0.75rem 1rem;
+  border-radius: 0 8px 8px 0;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.perigo-mestre {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.aviso-irreversivel {
+  color: var(--danger);
+  font-weight: 500;
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 8px;
+}
+
+.consulta-mestre summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.consulta-mestre summary::-webkit-details-marker { display: none; }
+
+.consulta-mestre summary h2 {
+  display: inline;
+  margin: 0;
+}
+
+.consulta-mestre-conteudo {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.consulta-bloco {
+  background: var(--bg-card);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+}
+
+.consulta-bloco h4 {
+  margin: 0 0 0.35rem;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.tabela-consulta {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1rem;
+  font-size: 0.85rem;
+}
+
+.tabela-consulta th,
+.tabela-consulta td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabela-consulta th {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.modal {
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .carta-icone { font-size: 2rem; margin-bottom: 0.5rem; display: block; }

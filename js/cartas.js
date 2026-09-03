@@ -1,9 +1,9 @@
 /**
- * Sistema de cartas: fetch JSON, grid, modal de detalhes, busca/filtro.
- * Filtros e tags vêm de CONFIG.areas / CONFIG.tiposProcurar / CONFIG.raridades.
+ * Sistema de cartas: fetch, grid, modal do mestre, ativação no telão.
  */
 let cartasDesastre = [];
 let cartasProcurar = [];
+let cartaModalAtual = null;
 
 async function carregarCartas(url) {
   const resp = await fetch(url);
@@ -36,88 +36,175 @@ function criarTag(texto, cor) {
   return span;
 }
 
-function renderTags(carta, tipo) {
+function areaMeta(area) {
+  return CONFIG.areas && CONFIG.areas[area] ? CONFIG.areas[area] : null;
+}
+
+function renderTagsDesastre(carta) {
   const tags = document.createElement('div');
   tags.className = 'carta-tags';
-
-  if (carta.area && CONFIG.areas && CONFIG.areas[carta.area]) {
-    tags.appendChild(criarTag(CONFIG.areas[carta.area].label, CONFIG.areas[carta.area].cor));
-  }
-  if (carta.raridade && CONFIG.raridades && CONFIG.raridades[carta.raridade]) {
-    tags.appendChild(criarTag(CONFIG.raridades[carta.raridade].label, CONFIG.raridades[carta.raridade].cor));
-  }
-  if (tipo === 'procurar' && carta.tipo && CONFIG.tiposProcurar && CONFIG.tiposProcurar[carta.tipo]) {
-    tags.appendChild(criarTag(CONFIG.tiposProcurar[carta.tipo].label, CONFIG.tiposProcurar[carta.tipo].cor));
-  }
-
+  const meta = areaMeta(carta.area);
+  if (meta) tags.appendChild(criarTag(meta.label, meta.cor));
+  if (carta.irreversivel) tags.appendChild(criarTag('Irreversível', '#ef4444'));
+  tags.appendChild(criarTag(`+${carta.aumentoColapso} Colapso`, '#f87171'));
+  if (isCartaAtiva(carta.id)) tags.appendChild(criarTag('Ativa', '#22c55e'));
   return tags;
 }
 
-function visualCarta(carta) {
-  if (carta.imagem) {
-    return `<img class="carta-imagem" src="${carta.imagem}" alt="">`;
+function renderTagsProcurar(carta) {
+  const tags = document.createElement('div');
+  tags.className = 'carta-tags';
+  if (carta.tipo && CONFIG.tiposProcurar[carta.tipo]) {
+    tags.appendChild(criarTag(CONFIG.tiposProcurar[carta.tipo].label, CONFIG.tiposProcurar[carta.tipo].cor));
   }
-  return `<span class="carta-icone" aria-hidden="true">${carta.icone || '🃏'}</span>`;
+  return tags;
 }
 
-function criarCartaEl(carta, tipo) {
+function resumoCarta(carta) {
+  if (carta.jogador?.narrativa) return carta.jogador.narrativa;
+  return carta.descricao || '';
+}
+
+function criarCartaDesastreEl(carta) {
+  const el = document.createElement('article');
+  el.className = 'carta carta-desastre';
+  if (isCartaAtiva(carta.id)) el.classList.add('carta-ativa');
+  el.setAttribute('role', 'button');
+  el.tabIndex = 0;
+  el.dataset.id = carta.id;
+
+  const meta = areaMeta(carta.area);
+  el.style.borderColor = meta ? meta.cor : 'var(--border)';
+
+  el.innerHTML = `
+    <span class="carta-codigo">${carta.codigo || carta.id}</span>
+    <span class="carta-icone" aria-hidden="true">${carta.icone || '☢'}</span>
+    <div class="carta-nome">${carta.nome}</div>
+    <div class="carta-descricao">${resumoCarta(carta).slice(0, 120)}${resumoCarta(carta).length > 120 ? '…' : ''}</div>
+  `;
+  el.appendChild(renderTagsDesastre(carta));
+
+  el.addEventListener('click', () => abrirModalMestre(carta));
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      abrirModalMestre(carta);
+    }
+  });
+  return el;
+}
+
+function criarCartaProcurarEl(carta) {
   const el = document.createElement('article');
   el.className = 'carta';
   el.setAttribute('role', 'button');
   el.tabIndex = 0;
   el.dataset.id = carta.id;
 
-  const areaCor = carta.area && CONFIG.areas && CONFIG.areas[carta.area]
-    ? CONFIG.areas[carta.area].cor
-    : 'var(--border)';
-  el.style.borderColor = areaCor;
-
   el.innerHTML = `
-    ${visualCarta(carta)}
+    <span class="carta-codigo">${carta.codigo || carta.id}</span>
+    <span class="carta-icone" aria-hidden="true">${carta.icone || '🃏'}</span>
     <div class="carta-nome">${carta.nome}</div>
     <div class="carta-descricao">${carta.descricao || ''}</div>
   `;
-  el.appendChild(renderTags(carta, tipo));
+  el.appendChild(renderTagsProcurar(carta));
 
-  el.addEventListener('click', () => abrirDetalheCarta(carta, tipo));
+  el.addEventListener('click', () => abrirModalProcurar(carta));
   el.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      abrirDetalheCarta(carta, tipo);
+      abrirModalProcurar(carta);
     }
   });
-
   return el;
 }
 
-function tagsHtmlCarta(carta, tipo) {
-  let tagsHtml = '';
-  if (carta.area && CONFIG.areas && CONFIG.areas[carta.area]) {
-    tagsHtml += `<span class="tag" style="color:${CONFIG.areas[carta.area].cor}">${CONFIG.areas[carta.area].label}</span> `;
-  }
-  if (carta.raridade && CONFIG.raridades && CONFIG.raridades[carta.raridade]) {
-    tagsHtml += `<span class="tag" style="color:${CONFIG.raridades[carta.raridade].cor}">${CONFIG.raridades[carta.raridade].label}</span> `;
-  }
-  if (tipo === 'procurar' && carta.tipo && CONFIG.tiposProcurar && CONFIG.tiposProcurar[carta.tipo]) {
-    tagsHtml += `<span class="tag" style="color:${CONFIG.tiposProcurar[carta.tipo].cor}">${CONFIG.tiposProcurar[carta.tipo].label}</span>`;
-  }
-  return tagsHtml;
+function listaHtml(items) {
+  if (!items || !items.length) return '';
+  return `<ul class="lista-mestre">${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
 }
 
-function abrirDetalheCarta(carta, tipo) {
+function abrirModalMestre(carta) {
+  cartaModalAtual = carta;
   const overlay = document.getElementById('modal-overlay');
   const conteudo = document.getElementById('modal-conteudo');
   if (!overlay || !conteudo) return;
 
-  const visual = carta.imagem
-    ? `<img class="modal-detalhe-imagem" src="${carta.imagem}" alt="">`
-    : `<div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '🃏'}</div>`;
+  const meta = areaMeta(carta.area);
+  const ativa = isCartaAtiva(carta.id);
+  let html = `
+    <div class="modal-detalhe modal-mestre" ${meta ? `style="border-top: 4px solid ${meta.cor}"` : ''}>
+      <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
+      <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '☢'}</div>
+      <h3 class="modal-detalhe-nome">${carta.nome}</h3>
+      <div class="carta-tags" style="justify-content:center;margin-bottom:1rem">
+        ${meta ? `<span class="tag" style="color:${meta.cor}">${meta.label}</span>` : ''}
+        <span class="tag" style="color:#f87171">+${carta.aumentoColapso} Colapso</span>
+        ${carta.irreversivel ? '<span class="tag" style="color:#ef4444">Irreversível</span>' : ''}
+      </div>
+  `;
+
+  if (carta.jogador?.narrativa) {
+    html += `
+      <div class="bloco-jogador-preview">
+        <h4>Texto do jogador (telão)</h4>
+        <p>${carta.jogador.narrativa}</p>
+        ${carta.jogador.pergunta ? `<p class="pergunta-preview"><strong>Pergunta:</strong> ${carta.jogador.pergunta}</p>` : ''}
+      </div>`;
+  }
+
+  if (carta.mestre) {
+    html += `
+      <div class="secao-mestre">
+        <h4>O que está acontecendo</h4>
+        <p>${carta.mestre.oQueAcontece || ''}</p>
+        ${carta.mestre.informacoesGuia?.length ? `<h4>Informações para guiar</h4>${listaHtml(carta.mestre.informacoesGuia)}` : ''}
+        ${carta.mestre.causas?.length ? `<h4>Possíveis causas</h4>${listaHtml(carta.mestre.causas)}` : ''}
+        ${carta.mestre.pista ? `<div class="pista-mestre"><strong>Pista para o mestre:</strong> ${carta.mestre.pista}</div>` : ''}
+      </div>`;
+  } else if (carta.irreversivel) {
+    html += `<p class="aviso-irreversivel">Carta sem solução no jogo. +1 no Colapso; a narrativa segue.</p>`;
+  }
+
+  if (carta.perigo) {
+    html += `
+      <div class="perigo-mestre">
+        <h4>Perigo associado — ${carta.perigo.codigo}: ${carta.perigo.nome}</h4>
+        <p>${carta.perigo.descricao || ''}</p>
+        ${carta.perigo.efeito ? `<p><strong>Efeito:</strong> ${carta.perigo.efeito}</p>` : ''}
+      </div>`;
+  }
+
+  html += `
+      <div class="modal-acoes-cartas">
+        <button type="button" class="btn ${ativa ? 'btn-danger' : 'btn-primary'}" id="btn-toggle-ativa">
+          ${ativa ? 'Desativar no telão' : 'Ativar no telão'}
+        </button>
+        ${ativa ? '<button type="button" class="btn btn-secondary" id="btn-exibir-telao">Exibir no telão</button>' : ''}
+      </div>
+    </div>`;
+
+  conteudo.innerHTML = html;
+  overlay.hidden = false;
+
+  document.getElementById('btn-toggle-ativa')?.addEventListener('click', () => toggleCartaAtiva(carta));
+  document.getElementById('btn-exibir-telao')?.addEventListener('click', () => exibirNoTelao(carta.id));
+}
+
+function abrirModalProcurar(carta) {
+  cartaModalAtual = null;
+  const overlay = document.getElementById('modal-overlay');
+  const conteudo = document.getElementById('modal-conteudo');
+  if (!overlay || !conteudo) return;
+
+  const tipo = carta.tipo && CONFIG.tiposProcurar[carta.tipo] ? CONFIG.tiposProcurar[carta.tipo] : null;
 
   conteudo.innerHTML = `
     <div class="modal-detalhe">
-      ${visual}
+      <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
+      <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '🃏'}</div>
       <h3 class="modal-detalhe-nome">${carta.nome}</h3>
-      <div class="carta-tags" style="justify-content:center;margin-bottom:1rem">${tagsHtmlCarta(carta, tipo)}</div>
+      ${tipo ? `<div class="carta-tags" style="justify-content:center;margin-bottom:1rem"><span class="tag" style="color:${tipo.cor}">${tipo.label}</span></div>` : ''}
       <p class="modal-detalhe-desc">${carta.descricao || 'Sem descrição.'}</p>
       ${carta.efeito ? `<div class="modal-detalhe-efeito"><strong>Efeito:</strong> ${carta.efeito}</div>` : ''}
     </div>
@@ -125,69 +212,213 @@ function abrirDetalheCarta(carta, tipo) {
   overlay.hidden = false;
 }
 
-function filtrarCartas(cartas, busca, area, raridade, tipo) {
+async function toggleCartaAtiva(carta) {
+  if (isCartaAtiva(carta.id)) {
+    await desativarCarta(carta);
+  } else {
+    await ativarCarta(carta);
+  }
+}
+
+async function ativarCarta(carta) {
+  const state = getCartasAtivas();
+  if (state.ids.includes(carta.id)) return;
+
+  if (!jaAplicouColapso(carta.id)) {
+    const ok = await mostrarConfirmacao(
+      `Ativar "${carta.nome}" no telão e somar +${carta.aumentoColapso} no Medidor de Colapso?`
+    );
+    if (!ok) return;
+
+    const medState = getMedidoresState();
+    const novo = clampMedidorValor('colapso', medState.colapso + carta.aumentoColapso);
+    setMedidorValor('colapso', novo);
+    marcarColapsoAplicado(carta.id);
+    addLogEntry(`${carta.codigo} ativada: +${carta.aumentoColapso} no Colapso (agora ${novo})`);
+    if (typeof renderMedidores === 'function') renderMedidores('admin');
+    if (typeof renderLog === 'function') renderLog();
+  } else {
+    addLogEntry(`${carta.codigo} reativada no telão`);
+  }
+
+  state.ids.push(carta.id);
+  setCartasAtivas(state);
+  fecharModalCartas();
+  refreshGridsDesastre();
+}
+
+async function desativarCarta(carta) {
+  const ok = await mostrarConfirmacao(`Remover "${carta.nome}" do telão?`);
+  if (!ok) return;
+
+  const state = getCartasAtivas();
+  state.ids = state.ids.filter((id) => id !== carta.id);
+  if (state.destaque === carta.id) state.destaque = null;
+  setCartasAtivas(state);
+  addLogEntry(`${carta.codigo} desativada no telão`);
+  if (typeof renderLog === 'function') renderLog();
+  fecharModalCartas();
+  refreshGridsDesastre();
+}
+
+function exibirNoTelao(id) {
+  setDestaqueCarta(id);
+  addLogEntry(`Carta ${id} em destaque no telão`);
+  if (typeof renderLog === 'function') renderLog();
+  fecharModalCartas();
+}
+
+function fecharModalCartas() {
+  const overlay = document.getElementById('modal-overlay');
+  if (overlay) overlay.hidden = true;
+  cartaModalAtual = null;
+}
+
+function filtrarDesastre(cartas, busca, area, tipo) {
+  return cartas.filter((c) => {
+    if (busca) {
+      const q = busca.toLowerCase();
+      const alvo = `${c.nome} ${c.codigo} ${c.id}`.toLowerCase();
+      if (!alvo.includes(q)) return false;
+    }
+    if (area && c.area !== area) return false;
+    if (tipo === 'regional' && c.irreversivel) return false;
+    if (tipo === 'irreversivel' && !c.irreversivel) return false;
+    return true;
+  });
+}
+
+function filtrarProcurar(cartas, busca, tipo) {
   return cartas.filter((c) => {
     if (busca && !c.nome.toLowerCase().includes(busca.toLowerCase())) return false;
-    if (area && c.area !== area) return false;
-    if (raridade && c.raridade !== raridade) return false;
     if (tipo && c.tipo !== tipo) return false;
     return true;
   });
 }
 
-function renderGrid(tipo, cartas, gridId, emptyId, temCadastro) {
-  const grid = document.getElementById(gridId);
-  const empty = document.getElementById(emptyId);
+function renderGridDesastre(cartas, temCadastro) {
+  const grid = document.getElementById('grid-desastre');
+  const empty = document.getElementById('empty-desastre');
   if (!grid) return;
-
   grid.innerHTML = '';
-
   if (cartas.length === 0) {
     if (empty) {
       empty.hidden = false;
-      empty.textContent = temCadastro
-        ? 'Nenhuma carta corresponde aos filtros.'
-        : (tipo === 'desastre'
-          ? 'Nenhuma carta de desastre cadastrada.'
-          : 'Nenhuma carta de procurar cadastrada.');
+      empty.textContent = temCadastro ? 'Nenhuma carta corresponde aos filtros.' : 'Nenhuma carta de desastre cadastrada.';
     }
     return;
   }
-
   if (empty) empty.hidden = true;
-  cartas.forEach((c) => grid.appendChild(criarCartaEl(c, tipo)));
+  cartas.forEach((c) => grid.appendChild(criarCartaDesastreEl(c)));
 }
 
-function setupFiltros(tipo, cartasRef, prefix) {
-  const busca = document.getElementById(`busca-${prefix}`);
-  const filtroArea = document.getElementById(`filtro-area-${prefix}`);
-  const filtroRaridade = document.getElementById(`filtro-raridade-${prefix}`);
-  const filtroTipo = document.getElementById(`filtro-tipo-${prefix}`);
+function renderGridProcurar(cartas, temCadastro) {
+  const grid = document.getElementById('grid-procurar');
+  const empty = document.getElementById('empty-procurar');
+  if (!grid) return;
+  grid.innerHTML = '';
+  if (cartas.length === 0) {
+    if (empty) {
+      empty.hidden = false;
+      empty.textContent = temCadastro ? 'Nenhuma carta corresponde aos filtros.' : 'Nenhuma carta de procurar cadastrada.';
+    }
+    return;
+  }
+  if (empty) empty.hidden = true;
+  cartas.forEach((c) => grid.appendChild(criarCartaProcurarEl(c)));
+}
+
+function refreshGridsDesastre() {
+  const busca = document.getElementById('busca-desastre');
+  const filtroArea = document.getElementById('filtro-area-desastre');
+  const filtroTipo = document.getElementById('filtro-tipo-desastre');
+  const filtradas = filtrarDesastre(
+    cartasDesastre,
+    busca?.value || '',
+    filtroArea?.value || '',
+    filtroTipo?.value || ''
+  );
+  renderGridDesastre(filtradas, cartasDesastre.length > 0);
+}
+
+function renderConsultaMestre() {
+  const el = document.getElementById('consulta-mestre-conteudo');
+  if (!el || !CONFIG.regrasMestre) return;
+  const r = CONFIG.regrasMestre;
+
+  el.innerHTML = `
+    <p>${r.impactoPadrao}</p>
+    <div class="consulta-bloco">
+      <h4>${r.sucessoContencao.titulo}</h4>
+      <p>${r.sucessoContencao.texto}</p>
+    </div>
+    <div class="consulta-bloco">
+      <h4>${r.falhaContencao.titulo}</h4>
+      <p>${r.falhaContencao.texto}</p>
+    </div>
+    <div class="consulta-bloco">
+      <h4>Colapso irreversível</h4>
+      <p>${r.irreversivel}</p>
+    </div>
+    <h4>Cartas reveladas por turno</h4>
+    <table class="tabela-consulta">
+      <thead><tr><th>Nível Colapso</th><th>Fase</th><th>Reveladas</th></tr></thead>
+      <tbody>
+        ${r.cartasPorTurno.map((row) => `<tr><td>${row.nivel}</td><td>${row.fase}</td><td>${row.reveladas}</td></tr>`).join('')}
+      </tbody>
+    </table>
+    <h4>Tabela de interdisciplinaridade</h4>
+    <table class="tabela-consulta">
+      <thead><tr><th>Nível</th><th>Cofre</th><th>Descrição</th></tr></thead>
+      <tbody>
+        ${r.interdisciplinaridade.map((row) => `<tr><td>${row.nivel}</td><td>+${row.cofre}</td><td><strong>${row.titulo}</strong> — ${row.descricao}</td></tr>`).join('')}
+      </tbody>
+    </table>
+    <h4>Três eixos de conhecimento</h4>
+    ${listaHtml(r.eixos)}
+  `;
+}
+
+function setupFiltrosDesastre() {
+  const busca = document.getElementById('busca-desastre');
+  const filtroArea = document.getElementById('filtro-area-desastre');
+  const filtroTipo = document.getElementById('filtro-tipo-desastre');
 
   preencherSelect(filtroArea, CONFIG.areas, 'Todos os biomas');
-  preencherSelect(filtroRaridade, CONFIG.raridades, 'Todas as raridades');
-  if (prefix === 'procurar') {
-    const tipos = CONFIG.tiposProcurar || {};
-    preencherSelect(filtroTipo, tipos, 'Todos os tipos');
-    if (Object.keys(tipos).length <= 1 && filtroTipo) filtroTipo.hidden = true;
+  if (filtroTipo) {
+    filtroTipo.innerHTML = `
+      <option value="">Todas as cartas</option>
+      <option value="regional">Regionais</option>
+      <option value="irreversivel">Irreversíveis</option>
+    `;
   }
+
+  function aplicar() { refreshGridsDesastre(); }
+  [busca, filtroArea, filtroTipo].forEach((el) => {
+    if (el) {
+      el.addEventListener('input', aplicar);
+      if (el.tagName === 'SELECT') el.addEventListener('change', aplicar);
+    }
+  });
+  aplicar();
+}
+
+function setupFiltrosProcurar() {
+  const busca = document.getElementById('busca-procurar');
+  const filtroTipo = document.getElementById('filtro-tipo-procurar');
+  preencherSelect(filtroTipo, CONFIG.tiposProcurar, 'Todos os tipos');
 
   function aplicar() {
-    const filtradas = filtrarCartas(
-      cartasRef,
-      busca?.value || '',
-      filtroArea?.value || '',
-      filtroRaridade?.value || '',
-      filtroTipo?.value || ''
-    );
-    renderGrid(tipo, filtradas, `grid-${prefix}`, `empty-${prefix}`, cartasRef.length > 0);
+    const filtradas = filtrarProcurar(cartasProcurar, busca?.value || '', filtroTipo?.value || '');
+    renderGridProcurar(filtradas, cartasProcurar.length > 0);
   }
 
-  [busca, filtroArea, filtroRaridade, filtroTipo].forEach((el) => {
-    if (el) el.addEventListener('input', aplicar);
-    if (el && el.tagName === 'SELECT') el.addEventListener('change', aplicar);
+  [busca, filtroTipo].forEach((el) => {
+    if (el) {
+      el.addEventListener('input', aplicar);
+      if (el.tagName === 'SELECT') el.addEventListener('change', aplicar);
+    }
   });
-
   aplicar();
 }
 
@@ -199,20 +430,38 @@ function mostrarErroCartas(prefix, msg) {
   }
 }
 
+function initModalCartasAdmin() {
+  const btnFechar = document.getElementById('modal-fechar');
+  const overlay = document.getElementById('modal-overlay');
+  if (btnFechar) btnFechar.addEventListener('click', fecharModalCartas);
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) fecharModalCartas();
+    });
+  }
+}
+
 async function initCartas() {
+  initModalCartasAdmin();
+  renderConsultaMestre();
+
   try {
     cartasDesastre = await carregarCartas(CONFIG.cartas.desastre);
-    setupFiltros('desastre', cartasDesastre, 'desastre');
+    setupFiltrosDesastre();
   } catch {
     mostrarErroCartas('desastre',
-      'Não foi possível carregar as cartas de desastre. Use um servidor estático (ex: python3 -m http.server) em vez de abrir o arquivo diretamente.');
+      'Não foi possível carregar as cartas de desastre. Use um servidor estático (ex: python3 -m http.server).');
   }
 
   try {
     cartasProcurar = await carregarCartas(CONFIG.cartas.procurar);
-    setupFiltros('procurar', cartasProcurar, 'procurar');
+    setupFiltrosProcurar();
   } catch {
     mostrarErroCartas('procurar',
-      'Não foi possível carregar as cartas de procurar. Use um servidor estático (ex: python3 -m http.server) em vez de abrir o arquivo diretamente.');
+      'Não foi possível carregar as cartas de procurar. Use um servidor estático (ex: python3 -m http.server).');
   }
+}
+
+function getCartaDesastrePorId(id) {
+  return cartasDesastre.find((c) => c.id === id);
 }
