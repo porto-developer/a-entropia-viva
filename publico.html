@@ -9,7 +9,7 @@
 <body class="page-publico">
   <main class="publico-main">
     <header class="publico-header">
-      <span aria-hidden="true">⚛</span>
+      <span class="brand-icon" data-lucide="atom" aria-hidden="true"></span>
       <h1>A Entropia Viva</h1>
     </header>
     <div id="medidores-container" class="medidores-grid medidores-publico"></div>
@@ -26,6 +26,8 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="js/icons.js"></script>
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/medidores.js"></script>
@@ -33,6 +35,7 @@
   <script>
     initMedidores('publico');
     initPublicoCartas();
+    refreshIcons(document.querySelector('.publico-header'));
   </script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     "codigo": "G1",
     "nome": "Derretimento das Geleiras",
     "area": "gelo",
-    "icone": "🧊",
+    "icone": "snowflake",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -30,7 +30,7 @@
     "codigo": "G2",
     "nome": "Migração Forçada da Fauna Polar",
     "area": "gelo",
-    "icone": "🐻‍❄️",
+    "icone": "paw-print",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -55,7 +55,7 @@
     "codigo": "G3",
     "nome": "Degelo do Permafrost",
     "area": "gelo",
-    "icone": "🫧",
+    "icone": "droplets",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -88,7 +88,7 @@
     "codigo": "G4",
     "nome": "Acidificação das Águas Polares",
     "area": "gelo",
-    "icone": "🌊",
+    "icone": "waves",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -115,7 +115,7 @@
     "codigo": "L1",
     "nome": "Branqueamento de Corais",
     "area": "litoranea",
-    "icone": "🪸",
+    "icone": "fish",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -142,7 +142,7 @@
     "codigo": "L2",
     "nome": "Vazamento de Óleo no Mar",
     "area": "litoranea",
-    "icone": "🛢️",
+    "icone": "fuel",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -174,7 +174,7 @@
     "codigo": "L3",
     "nome": "Maré Vermelha: Floração de Algas Nocivas",
     "area": "litoranea",
-    "icone": "🔴",
+    "icone": "circle",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -199,7 +199,7 @@
     "codigo": "L4",
     "nome": "Ressaca e Enchente Costeira",
     "area": "litoranea",
-    "icone": "🌊",
+    "icone": "waves",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -232,7 +232,7 @@
     "codigo": "S1",
     "nome": "Incêndio em Vegetação de Seca",
     "area": "seca",
-    "icone": "🔥",
+    "icone": "flame",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -264,7 +264,7 @@
     "codigo": "S2",
     "nome": "Colapso do Sistema Hidrelétrico",
     "area": "seca",
-    "icone": "⚡",
+    "icone": "zap",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -290,7 +290,7 @@
     "codigo": "S3",
     "nome": "Salinização e Desertificação do Solo",
     "area": "seca",
-    "icone": "🏜️",
+    "icone": "sun",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -317,7 +317,7 @@
     "codigo": "S4",
     "nome": "Onda de Calor e Estresse Térmico na Fauna",
     "area": "seca",
-    "icone": "🌡️",
+    "icone": "thermometer",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -344,7 +344,7 @@
     "codigo": "M1",
     "nome": "Incêndio Florestal",
     "area": "mata",
-    "icone": "🔥",
+    "icone": "flame",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -371,7 +371,7 @@
     "codigo": "M2",
     "nome": "Praga Silenciosa na Vegetação",
     "area": "mata",
-    "icone": "🌿",
+    "icone": "leaf",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -404,7 +404,7 @@
     "codigo": "M3",
     "nome": "Rio Contaminado",
     "area": "mata",
-    "icone": "☣️",
+    "icone": "biohazard",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -431,7 +431,7 @@
     "codigo": "M4",
     "nome": "Fragmentação de Habitat",
     "area": "mata",
-    "icone": "🛣️",
+    "icone": "route",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -458,7 +458,7 @@
     "codigo": "C1",
     "nome": "Ar Denso: Poluição Atmosférica",
     "area": "cidade",
-    "icone": "🏭",
+    "icone": "factory",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -491,7 +491,7 @@
     "codigo": "C2",
     "nome": "Enchente Urbana",
     "area": "cidade",
-    "icone": "🌧️",
+    "icone": "cloud-rain",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -518,7 +518,7 @@
     "codigo": "C3",
     "nome": "Apagão: Falta de Energia",
     "area": "cidade",
-    "icone": "💡",
+    "icone": "lightbulb",
     "aumentoColapso": 1,
     "irreversivel": false,
     "jogador": {
@@ -544,7 +544,7 @@
     "codigo": "C4",
     "nome": "Usina de Energia Não Sustentável",
     "area": "cidade",
-    "icone": "🏭",
+    "icone": "factory",
     "aumentoColapso": 2,
     "irreversivel": false,
     "jogador": {
@@ -571,7 +571,7 @@
     "codigo": "I1",
     "nome": "Terremoto Repentino",
     "area": "global",
-    "icone": "🌍",
+    "icone": "globe",
     "aumentoColapso": 1,
     "irreversivel": true,
     "jogador": {
@@ -583,7 +583,7 @@
     "codigo": "I2",
     "nome": "Onda de Calor Extrema",
     "area": "global",
-    "icone": "🌡️",
+    "icone": "thermometer",
     "aumentoColapso": 1,
     "irreversivel": true,
     "jogador": {
@@ -595,7 +595,7 @@
     "codigo": "I3",
     "nome": "Erupção Vulcânica Distante",
     "area": "global",
-    "icone": "🌋",
+    "icone": "mountain",
     "aumentoColapso": 1,
     "irreversivel": true,
     "jogador": {
@@ -607,7 +607,7 @@
     "codigo": "I4",
     "nome": "Tsunami Repentino",
     "area": "global",
-    "icone": "🌊",
+    "icone": "waves",
     "aumentoColapso": 1,
     "irreversivel": true,
     "jogador": {
@@ -619,7 +619,7 @@
     "codigo": "I5",
     "nome": "Tempestade Extrema",
     "area": "global",
-    "icone": "⛈️",
+    "icone": "cloud-lightning",
     "aumentoColapso": 1,
     "irreversivel": true,
     "jogador": {
@@ -631,7 +631,7 @@
     "codigo": "I6",
     "nome": "Deslizamento de Grande Escala",
     "area": "global",
-    "icone": "⛰️",
+    "icone": "mountain",
     "aumentoColapso": 1,
     "irreversivel": true,
     "jogador": {

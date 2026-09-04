@@ -6,9 +6,10 @@ let cartasProcurar = [];
 let cartaModalAtual = null;
 
 async function carregarCartas(url) {
-  const resp = await fetch(url);
+  const resp = await fetch(url, { cache: 'no-store' });
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-  return resp.json();
+  const cartas = await resp.json();
+  return cartas.map(normalizarIconeCarta);
 }
 
 function preencherSelect(select, mapa, placeholder) {
@@ -78,7 +79,7 @@ function criarCartaDesastreEl(carta) {
 
   el.innerHTML = `
     <span class="carta-codigo">${carta.codigo || carta.id}</span>
-    <span class="carta-icone" aria-hidden="true">${carta.icone || '☢'}</span>
+    ${icon(carta.icone || ICON_DEFAULTS.desastre, 'carta-icone')}
     <div class="carta-nome">${carta.nome}</div>
     <div class="carta-descricao">${resumoCarta(carta).slice(0, 120)}${resumoCarta(carta).length > 120 ? '…' : ''}</div>
   `;
@@ -103,7 +104,7 @@ function criarCartaProcurarEl(carta) {
 
   el.innerHTML = `
     <span class="carta-codigo">${carta.codigo || carta.id}</span>
-    <span class="carta-icone" aria-hidden="true">${carta.icone || '🃏'}</span>
+    ${icon(carta.icone || ICON_DEFAULTS.procurar, 'carta-icone')}
     <div class="carta-nome">${carta.nome}</div>
     <div class="carta-descricao">${carta.descricao || ''}</div>
   `;
@@ -136,7 +137,7 @@ function abrirModalMestre(carta) {
     <div class="modal-detalhe modal-mestre" ${meta ? `style="border-top: 4px solid ${meta.cor}"` : ''}>
       <div class="modal-detalhe-header">
         <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
-        <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '☢'}</div>
+        ${icon(carta.icone || ICON_DEFAULTS.desastre, 'modal-detalhe-icone')}
         <h3 class="modal-detalhe-nome">${carta.nome}</h3>
         <div class="carta-tags">
           ${meta ? `<span class="tag" style="color:${meta.cor}">${meta.label}</span>` : ''}
@@ -182,6 +183,7 @@ function abrirModalMestre(carta) {
 
   conteudo.innerHTML = html;
   renderModalAcoesDesastre(carta, ativa);
+  refreshIcons(conteudo);
   overlay.hidden = false;
 }
 
@@ -208,6 +210,7 @@ function renderModalAcoesDesastre(carta, ativa) {
     if (getCartasAtivas().destaque === carta.id) removerExibicaoTelao();
     else exibirNoTelao(carta.id);
   });
+  refreshIcons(acoes);
 }
 
 function abrirModalProcurar(carta) {
@@ -222,7 +225,7 @@ function abrirModalProcurar(carta) {
     <div class="modal-detalhe">
       <div class="modal-detalhe-header">
         <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
-        <div class="modal-detalhe-icone" aria-hidden="true">${carta.icone || '🃏'}</div>
+        ${icon(carta.icone || ICON_DEFAULTS.procurar, 'modal-detalhe-icone')}
         <h3 class="modal-detalhe-nome">${carta.nome}</h3>
         ${tipo ? `<div class="carta-tags"><span class="tag" style="color:${tipo.cor}">${tipo.label}</span></div>` : ''}
       </div>
@@ -231,6 +234,7 @@ function abrirModalProcurar(carta) {
     </div>
   `;
   limparModalAcoes();
+  refreshIcons(conteudo);
   overlay.hidden = false;
 }
 
@@ -334,6 +338,7 @@ function renderGridDesastre(cartas, temCadastro) {
   }
   if (empty) empty.hidden = true;
   cartas.forEach((c) => grid.appendChild(criarCartaDesastreEl(c)));
+  refreshIcons(grid);
 }
 
 function renderGridProcurar(cartas, temCadastro) {
@@ -350,6 +355,7 @@ function renderGridProcurar(cartas, temCadastro) {
   }
   if (empty) empty.hidden = true;
   cartas.forEach((c) => grid.appendChild(criarCartaProcurarEl(c)));
+  refreshIcons(grid);
 }
 
 function refreshGridsDesastre() {
@@ -414,6 +420,7 @@ function renderCartasAtivas() {
 
     lista.appendChild(item);
   });
+  refreshIcons(lista);
 }
 
 function renderIntroGuia() {

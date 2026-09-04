@@ -62,7 +62,7 @@ function criarMedidorHTML(config, valor, modo) {
 
   card.innerHTML = `
     <div class="medidor-header">
-      <span class="medidor-icone" aria-hidden="true">${config.icone}</span>
+      ${icon(config.icone, 'medidor-icone')}
       <h3>${config.nome}</h3>
     </div>
     <div class="gauge" aria-label="${config.nome}: ${valor} de ${config.max}">
@@ -97,12 +97,13 @@ function mostrarModalEvento(config) {
   const classeTema = config.tema === 'colapso' ? 'modal-evento-colapso' : 'modal-evento-cofre';
   conteudo.innerHTML = `
     <div class="${classeTema}">
-      <div class="modal-evento-icone" aria-hidden="true">${config.icone}</div>
+      ${icon(config.icone, 'modal-evento-icone')}
       <h3 class="modal-evento-titulo">${config.eventoMaximo}</h3>
       <p class="modal-evento-desc">${config.descricaoEvento}</p>
     </div>
   `;
   if (typeof limparModalAcoes === 'function') limparModalAcoes();
+  refreshIcons(conteudo);
   overlay.hidden = false;
 }
 
@@ -242,6 +243,8 @@ function renderMedidores(modo) {
       btn.addEventListener('click', () => resetarMedidor(btn.dataset.id));
     });
   }
+
+  refreshIcons(container);
 }
 
 function sincronizarMedidoresPublico() {

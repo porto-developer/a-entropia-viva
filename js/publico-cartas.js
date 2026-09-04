@@ -7,9 +7,9 @@ let modalAbertoId = null;
 
 async function carregarDesastresPublico() {
   if (cartasDesastrePublico.length) return cartasDesastrePublico;
-  const resp = await fetch(CONFIG.cartas.desastre);
+  const resp = await fetch(CONFIG.cartas.desastre, { cache: 'no-store' });
   if (!resp.ok) throw new Error('fetch failed');
-  cartasDesastrePublico = await resp.json();
+  cartasDesastrePublico = (await resp.json()).map(normalizarIconeCarta);
   return cartasDesastrePublico;
 }
 
@@ -44,6 +44,7 @@ function renderModalJogador(carta) {
   conteudo.innerHTML = html;
   const acoes = document.getElementById('modal-acoes');
   if (acoes) acoes.innerHTML = '';
+  refreshIcons(conteudo);
   overlay.hidden = false;
 }
 
@@ -88,7 +89,7 @@ function renderCartasAtivasPublico() {
 
     tile.innerHTML = `
       <span class="carta-codigo">${carta.codigo}</span>
-      <span class="carta-icone">${carta.icone || '☢'}</span>
+      ${icon(carta.icone || ICON_DEFAULTS.desastre, 'carta-icone')}
       <span class="carta-ativa-nome">${carta.nome}</span>
       ${meta ? `<span class="tag" style="color:${meta.cor}">${meta.label}</span>` : ''}
     `;
@@ -103,6 +104,7 @@ function renderCartasAtivasPublico() {
   });
 
   container.appendChild(grid);
+  refreshIcons(container);
 }
 
 function sincronizarPublicoCartas() {

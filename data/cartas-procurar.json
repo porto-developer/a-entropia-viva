@@ -4,7 +4,7 @@
     "codigo": "P",
     "nome": "Pista",
     "tipo": "pista",
-    "icone": "🔍",
+    "icone": "search",
     "descricao": "Revela uma informação específica sobre o desastre em curso naquela partida.",
     "efeito": "O mestre escreve ou formula o texto da pista conforme a carta de desastre ativa na mesa. Use o bloco \"Pista para o mestre\" da carta correspondente."
   },
@@ -13,7 +13,7 @@
     "codigo": "D1",
     "nome": "Dado Científico — Chuva e clima",
     "tipo": "dado",
-    "icone": "🌡️",
+    "icone": "thermometer",
     "descricao": "Um aumento de 1°C na temperatura média do planeta já é suficiente para alterar significativamente os padrões de chuva.",
     "efeito": "Fato geral de ciência ambiental, válido em qualquer região."
   },
@@ -22,7 +22,7 @@
     "codigo": "D2",
     "nome": "Dado Científico — Oxigênio oceânico",
     "tipo": "dado",
-    "icone": "🫁",
+    "icone": "wind",
     "descricao": "A maior parte do oxigênio que respiramos vem do fitoplâncton oceânico, não das florestas.",
     "efeito": "Fato geral de ciência ambiental, válido em qualquer região."
   },
@@ -31,7 +31,7 @@
     "codigo": "D3",
     "nome": "Dado Científico — Metais pesados",
     "tipo": "dado",
-    "icone": "⚗️",
+    "icone": "flask-conical",
     "descricao": "Metais pesados não se degradam na natureza — eles se acumulam nos organismos.",
     "efeito": "Fato geral de ciência ambiental, válido em qualquer região."
   },
@@ -40,7 +40,7 @@
     "codigo": "D4",
     "nome": "Dado Científico — Óleo na água",
     "tipo": "dado",
-    "icone": "🛢️",
+    "icone": "fuel",
     "descricao": "Um único litro de óleo pode contaminar até um milhão de litros de água.",
     "efeito": "Fato geral de ciência ambiental, válido em qualquer região."
   },
@@ -49,7 +49,7 @@
     "codigo": "D5",
     "nome": "Dado Científico — Manguezais",
     "tipo": "dado",
-    "icone": "🌊",
+    "icone": "waves",
     "descricao": "Manguezais funcionam como berçário para até 75% das espécies de peixes de interesse comercial.",
     "efeito": "Fato geral de ciência ambiental, válido em qualquer região."
   },
@@ -58,7 +58,7 @@
     "codigo": "D6",
     "nome": "Dado Científico — Acidificação",
     "tipo": "dado",
-    "icone": "🧪",
+    "icone": "test-tube",
     "descricao": "O CO₂ dissolvido na água do mar forma ácido carbônico — é esse processo que causa a acidificação dos oceanos.",
     "efeito": "Fato geral de ciência ambiental, válido em qualquer região."
   },
@@ -67,7 +67,7 @@
     "codigo": "A",
     "nome": "Ação Especial — Pular Fase da Natureza",
     "tipo": "acao",
-    "icone": "⏭️",
+    "icone": "skip-forward",
     "descricao": "Permite pular a próxima Fase da Natureza.",
     "efeito": "Nenhuma carta de desastre é revelada no turno seguinte."
   }

@@ -6,8 +6,8 @@ const CONFIG = {
   medidores: {
     colapso: {
       id: 'colapso',
-      nome: 'Colapso',
-      icone: '☢',
+      nome: 'Colapso devido à Entropia Viva',
+      icone: 'skull',
       min: 0,
       max: 10,
       inicial: 0,
@@ -18,8 +18,8 @@ const CONFIG = {
     },
     cofre: {
       id: 'cofre',
-      nome: 'Proximidade do Cofre',
-      icone: '🔐',
+      nome: 'Proximidade de abertura do cofre',
+      icone: 'lock-keyhole',
       min: 0,
       max: 15,
       inicial: 0,
@@ -59,7 +59,7 @@ const CONFIG = {
     impactoPadrao: 'Quando a carta de desastre é apresentada, o medidor de Colapso aumenta conforme a carta.',
     sucessoContencao: {
       titulo: 'Sucesso na contenção (Soma ≥ 10)',
-      texto: 'Debate ou resolução do desastre ecológico de forma interdisciplinar e cientificamente precisa (valor no cofre conforme a tabela de interdisciplinaridade + bônus do personagem).',
+      texto: 'Debate ou resolução interdisciplinar e cientificamente precisa = Resultado de 2D6 + bônus da tabela de interdisciplinaridade + bônus do personagem quando disponível.',
     },
     falhaContencao: {
       titulo: 'Falha na contenção (Soma < 10)',

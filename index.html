@@ -10,7 +10,7 @@
   <main class="login-container">
     <div class="login-card">
       <div class="login-brand">
-        <span class="brand-icon" aria-hidden="true">⚛</span>
+      <span class="brand-icon" data-lucide="atom" aria-hidden="true"></span>
         <h1>A Entropia Viva</h1>
         <p class="subtitle">Painel do Mestre</p>
       </div>
@@ -25,9 +25,11 @@
       </p>
     </div>
   </main>
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="js/icons.js"></script>
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
-  <script>initLogin();</script>
+  <script>initLogin(); refreshIcons();</script>
 </body>
 </html>
