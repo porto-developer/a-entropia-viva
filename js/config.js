@@ -15,6 +15,12 @@ const CONFIG = {
       descricaoEvento: 'Vocês foram derrotados, vítimas do saber fragmentado. A complexidade do mundo real avançou sem barreiras. Que sirva de lição: no mundo real, agir de forma segmentada é apenas outra forma de decretar a nossa própria ruína.',
       tema: 'colapso',
       inverterCores: false,
+      alertaAgravamento: {
+        min: 4,
+        max: 6,
+        titulo: 'Agravamento da crise',
+        mensagem: 'Duas cartas de desastre serão reveladas por turno da Natureza.',
+      },
     },
     cofre: {
       id: 'cofre',
@@ -68,8 +74,8 @@ const CONFIG = {
     irreversivel: 'Antes de deixar qualquer área, uma carta de desastre irreversível é puxada. Não há solução no jogo: +1 no Colapso e a narrativa segue.',
     cartasPorTurno: [
       { nivel: '1–3', fase: 'Início da crise', reveladas: 1 },
-      { nivel: '4–5', fase: 'Agravamento', reveladas: 2 },
-      { nivel: '6–9', fase: 'Situação crítica', reveladas: 2 },
+      { nivel: '4–5-6', fase: 'Agravamento', reveladas: 2 },
+      { nivel: '7–9', fase: 'Situação crítica', reveladas: 2 },
       { nivel: '10', fase: 'Colapso', reveladas: 'Fim do jogo' },
     ],
     interdisciplinaridade: [
