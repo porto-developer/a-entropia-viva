@@ -69,13 +69,13 @@ const CONFIG = {
     },
     falhaContencao: {
       titulo: 'Falha na contenção (Soma < 10)',
-      texto: 'Proposta insatisfatória, ignorada ou parcialmente atendida (só bônus do personagem). O desastre continua ou se intensifica: Colapso não diminui e o Cofre não avança.',
+      texto: 'Proposta insatisfatória, ignorada ou não atendida (nível 0) - joga somente 2D6. O desastre se intensifica: colapso não diminui e o cofre não avança',
     },
     irreversivel: 'Antes de deixar qualquer área, uma carta de desastre irreversível é puxada. Não há solução no jogo: +1 no Colapso e a narrativa segue.',
     cartasPorTurno: [
       { nivel: '1–3', fase: 'Início da crise', reveladas: 1 },
       { nivel: '4–5-6', fase: 'Agravamento', reveladas: 2 },
-      { nivel: '7–9', fase: 'Situação crítica', reveladas: 2 },
+      { nivel: '7–9', fase: 'Situação crítica', reveladas: 1 },
       { nivel: '10', fase: 'Colapso', reveladas: 'Fim do jogo' },
     ],
     interdisciplinaridade: [
