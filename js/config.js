@@ -64,11 +64,11 @@ const CONFIG = {
     },
     impactoPadrao: 'Quando a carta de desastre é apresentada, o medidor de Colapso aumenta conforme a carta.',
     sucessoContencao: {
-      titulo: 'Sucesso na contenção (Soma ≥ 10)',
+      titulo: 'Sucesso (Soma >= 10): O desastre é evitado e o Medidor de Colapso diminui 1 nível, enquanto o Cofre sobe para o nível que o mestre observou na tabela de interdisciplinaridade.',
       texto: 'Debate ou resolução interdisciplinar e cientificamente precisa = Resultado de 2D6 + bônus da tabela de interdisciplinaridade + bônus do personagem quando disponível.',
     },
     falhaContencao: {
-      titulo: 'Falha na contenção (Soma < 10)',
+      titulo: 'Falha na contenção: Uma proposta com uma resolução insatisfatória, que foi ignorada ou apenas parcialmente atendida só usar o + bônus do personagem.',
       texto: 'Proposta insatisfatória, ignorada ou não atendida (nível 0) - joga somente 2D6. O desastre se intensifica: colapso não diminui e o cofre não avança',
     },
     irreversivel: 'Antes de deixar qualquer área, uma carta de desastre irreversível é puxada. Não há solução no jogo: +1 no Colapso e a narrativa segue.',
