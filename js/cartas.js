@@ -2,7 +2,6 @@
  * Sistema de cartas: fetch, grid, modal do mestre, ativação no telão.
  */
 let cartasDesastre = [];
-let cartasProcurar = [];
 let cartaModalAtual = null;
 
 async function carregarCartas(url) {
@@ -46,19 +45,25 @@ function renderTagsDesastre(carta) {
   tags.className = 'carta-tags';
   const meta = areaMeta(carta.area);
   if (meta) tags.appendChild(criarTag(meta.label, meta.cor));
+  if (carta.perigo) tags.appendChild(criarTag(`Perigo ${carta.perigo.codigo}`, '#ef4444'));
   if (carta.irreversivel) tags.appendChild(criarTag('Irreversível', '#ef4444'));
   tags.appendChild(criarTag(`+${carta.aumentoColapso} Colapso`, '#f87171'));
   if (isCartaAtiva(carta.id)) tags.appendChild(criarTag('Ativa', '#22c55e'));
   return tags;
 }
 
-function renderTagsProcurar(carta) {
-  const tags = document.createElement('div');
-  tags.className = 'carta-tags';
-  if (carta.tipo && CONFIG.tiposProcurar[carta.tipo]) {
-    tags.appendChild(criarTag(CONFIG.tiposProcurar[carta.tipo].label, CONFIG.tiposProcurar[carta.tipo].cor));
-  }
-  return tags;
+function ordenarCartasDesastre(cartas) {
+  return [...cartas].sort((a, b) => Number(!!b.perigo) - Number(!!a.perigo));
+}
+
+function htmlPerigoMestre(carta) {
+  if (!carta.perigo) return '';
+  return `
+    <div class="perigo-mestre perigo-mestre-topo">
+      <h4>Perigo associado — ${carta.perigo.codigo}: ${carta.perigo.nome}</h4>
+      <p>${carta.perigo.descricao || ''}</p>
+      ${carta.perigo.efeito ? `<p><strong>Efeito:</strong> ${carta.perigo.efeito}</p>` : ''}
+    </div>`;
 }
 
 function resumoCarta(carta) {
@@ -69,6 +74,7 @@ function resumoCarta(carta) {
 function criarCartaDesastreEl(carta) {
   const el = document.createElement('article');
   el.className = 'carta carta-desastre';
+  if (carta.perigo) el.classList.add('carta-com-perigo');
   if (isCartaAtiva(carta.id)) el.classList.add('carta-ativa');
   el.setAttribute('role', 'button');
   el.tabIndex = 0;
@@ -90,31 +96,6 @@ function criarCartaDesastreEl(carta) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       abrirModalMestre(carta);
-    }
-  });
-  return el;
-}
-
-function criarCartaProcurarEl(carta) {
-  const el = document.createElement('article');
-  el.className = 'carta';
-  el.setAttribute('role', 'button');
-  el.tabIndex = 0;
-  el.dataset.id = carta.id;
-
-  el.innerHTML = `
-    <span class="carta-codigo">${carta.codigo || carta.id}</span>
-    ${icon(carta.icone || ICON_DEFAULTS.procurar, 'carta-icone')}
-    <div class="carta-nome">${carta.nome}</div>
-    <div class="carta-descricao">${carta.descricao || ''}</div>
-  `;
-  el.appendChild(renderTagsProcurar(carta));
-
-  el.addEventListener('click', () => abrirModalProcurar(carta));
-  el.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      abrirModalProcurar(carta);
     }
   });
   return el;
@@ -145,6 +126,7 @@ function abrirModalMestre(carta) {
           ${carta.irreversivel ? '<span class="tag" style="color:#ef4444">Irreversível</span>' : ''}
         </div>
       </div>
+      ${htmlPerigoMestre(carta)}
   `;
 
   if (carta.jogador?.narrativa) {
@@ -167,15 +149,6 @@ function abrirModalMestre(carta) {
       </div>`;
   } else if (carta.irreversivel) {
     html += `<p class="aviso-irreversivel">Carta sem solução no jogo. +1 no Colapso; a narrativa segue.</p>`;
-  }
-
-  if (carta.perigo) {
-    html += `
-      <div class="perigo-mestre">
-        <h4>Perigo associado — ${carta.perigo.codigo}: ${carta.perigo.nome}</h4>
-        <p>${carta.perigo.descricao || ''}</p>
-        ${carta.perigo.efeito ? `<p><strong>Efeito:</strong> ${carta.perigo.efeito}</p>` : ''}
-      </div>`;
   }
 
   html += `
@@ -213,31 +186,6 @@ function renderModalAcoesDesastre(carta, ativa) {
   refreshIcons(acoes);
 }
 
-function abrirModalProcurar(carta) {
-  cartaModalAtual = null;
-  const overlay = document.getElementById('modal-overlay');
-  const conteudo = document.getElementById('modal-conteudo');
-  if (!overlay || !conteudo) return;
-
-  const tipo = carta.tipo && CONFIG.tiposProcurar[carta.tipo] ? CONFIG.tiposProcurar[carta.tipo] : null;
-
-  conteudo.innerHTML = `
-    <div class="modal-detalhe">
-      <div class="modal-detalhe-header">
-        <span class="carta-codigo modal-codigo">${carta.codigo || carta.id}</span>
-        ${icon(carta.icone || ICON_DEFAULTS.procurar, 'modal-detalhe-icone')}
-        <h3 class="modal-detalhe-nome">${carta.nome}</h3>
-        ${tipo ? `<div class="carta-tags"><span class="tag" style="color:${tipo.cor}">${tipo.label}</span></div>` : ''}
-      </div>
-      <p class="modal-detalhe-desc">${carta.descricao || 'Sem descrição.'}</p>
-      ${carta.efeito ? `<div class="modal-detalhe-efeito"><strong>Efeito:</strong> ${carta.efeito}</div>` : ''}
-    </div>
-  `;
-  limparModalAcoes();
-  refreshIcons(conteudo);
-  overlay.hidden = false;
-}
-
 async function toggleCartaAtiva(carta) {
   if (isCartaAtiva(carta.id)) {
     await desativarCarta(carta);
@@ -270,8 +218,20 @@ async function ativarCarta(carta) {
 }
 
 async function desativarCarta(carta) {
-  const ok = await mostrarConfirmacao(`Remover "${carta.nome}" do telão?`);
+  const colapsoFoiAplicado = jaAplicouColapso(carta.id);
+  const msg = colapsoFoiAplicado
+    ? `Remover "${carta.nome}" do telão e subtrair ${carta.aumentoColapso} do Medidor de Colapso?`
+    : `Remover "${carta.nome}" do telão?`;
+  const ok = await mostrarConfirmacao(msg);
   if (!ok) return;
+
+  if (colapsoFoiAplicado) {
+    const medState = getMedidoresState();
+    const novo = clampMedidorValor('colapso', medState.colapso - carta.aumentoColapso);
+    setMedidorValor('colapso', novo);
+    desmarcarColapsoAplicado(carta.id);
+    if (typeof renderMedidores === 'function') renderMedidores('admin');
+  }
 
   const state = getCartasAtivas();
   state.ids = state.ids.filter((id) => id !== carta.id);
@@ -316,14 +276,6 @@ function filtrarDesastre(cartas, busca, area, tipo) {
   });
 }
 
-function filtrarProcurar(cartas, busca, tipo) {
-  return cartas.filter((c) => {
-    if (busca && !c.nome.toLowerCase().includes(busca.toLowerCase())) return false;
-    if (tipo && c.tipo !== tipo) return false;
-    return true;
-  });
-}
-
 function renderGridDesastre(cartas, temCadastro) {
   const grid = document.getElementById('grid-desastre');
   const empty = document.getElementById('empty-desastre');
@@ -341,33 +293,16 @@ function renderGridDesastre(cartas, temCadastro) {
   refreshIcons(grid);
 }
 
-function renderGridProcurar(cartas, temCadastro) {
-  const grid = document.getElementById('grid-procurar');
-  const empty = document.getElementById('empty-procurar');
-  if (!grid) return;
-  grid.innerHTML = '';
-  if (cartas.length === 0) {
-    if (empty) {
-      empty.hidden = false;
-      empty.textContent = temCadastro ? 'Nenhuma carta corresponde aos filtros.' : 'Nenhuma carta de procurar cadastrada.';
-    }
-    return;
-  }
-  if (empty) empty.hidden = true;
-  cartas.forEach((c) => grid.appendChild(criarCartaProcurarEl(c)));
-  refreshIcons(grid);
-}
-
 function refreshGridsDesastre() {
   const busca = document.getElementById('busca-desastre');
   const filtroArea = document.getElementById('filtro-area-desastre');
   const filtroTipo = document.getElementById('filtro-tipo-desastre');
-  const filtradas = filtrarDesastre(
+  const filtradas = ordenarCartasDesastre(filtrarDesastre(
     cartasDesastre,
     busca?.value || '',
     filtroArea?.value || '',
     filtroTipo?.value || ''
-  );
+  ));
   renderGridDesastre(filtradas, cartasDesastre.length > 0);
   renderCartasAtivas();
 }
@@ -451,14 +386,6 @@ function renderConsultaMestre() {
     </tr>`;
   }).join('');
 
-  const linhasMedidor = r.cartasPorTurno.map((row) => `
-    <tr>
-      <td class="col-nivel">${row.nivel}</td>
-      <td class="col-fase">${row.fase}</td>
-      <td class="col-reveladas">${row.reveladas}</td>
-    </tr>
-  `).join('');
-
   el.innerHTML = `
     <div class="consulta-rapida-bloco">
       <table class="tabela-consulta tabela-consulta-rapida" aria-label="Consulta rápida — cartas de desastre">
@@ -471,20 +398,6 @@ function renderConsultaMestre() {
           </tr>
         </thead>
         <tbody>${linhasCartas || '<tr><td colspan="4">Carregando cartas…</td></tr>'}</tbody>
-      </table>
-    </div>
-
-    <h3 class="consulta-subtitulo">Correspondência entre nível do medidor e liberação de cartas</h3>
-    <div class="consulta-rapida-bloco">
-      <table class="tabela-consulta tabela-consulta-rapida" aria-label="Correspondência nível do medidor e cartas por turno">
-        <thead>
-          <tr>
-            <th>Nível do medidor</th>
-            <th>Fase</th>
-            <th>Reveladas por turno</th>
-          </tr>
-        </thead>
-        <tbody>${linhasMedidor}</tbody>
       </table>
     </div>
 
@@ -550,25 +463,6 @@ function setupFiltrosDesastre() {
   aplicar();
 }
 
-function setupFiltrosProcurar() {
-  const busca = document.getElementById('busca-procurar');
-  const filtroTipo = document.getElementById('filtro-tipo-procurar');
-  preencherSelect(filtroTipo, CONFIG.tiposProcurar, 'Todos os tipos');
-
-  function aplicar() {
-    const filtradas = filtrarProcurar(cartasProcurar, busca?.value || '', filtroTipo?.value || '');
-    renderGridProcurar(filtradas, cartasProcurar.length > 0);
-  }
-
-  [busca, filtroTipo].forEach((el) => {
-    if (el) {
-      el.addEventListener('input', aplicar);
-      if (el.tagName === 'SELECT') el.addEventListener('change', aplicar);
-    }
-  });
-  aplicar();
-}
-
 function mostrarErroCartas(prefix, msg) {
   const erro = document.getElementById(`erro-${prefix}`);
   if (erro) {
@@ -600,14 +494,6 @@ async function initCartas() {
     mostrarErroCartas('desastre',
       'Não foi possível carregar as cartas de desastre. Use um servidor estático (ex: python3 -m http.server).');
     renderConsultaMestre();
-  }
-
-  try {
-    cartasProcurar = await carregarCartas(CONFIG.cartas.procurar);
-    setupFiltrosProcurar();
-  } catch {
-    mostrarErroCartas('procurar',
-      'Não foi possível carregar as cartas de procurar. Use um servidor estático (ex: python3 -m http.server).');
   }
 
   renderCartasAtivas();

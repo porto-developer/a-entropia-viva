@@ -34,48 +34,6 @@ function calcularRatio(valor, min, max) {
   return Math.max(0, Math.min(1, (valor - min) / (max - min)));
 }
 
-function isColapsoAlertaAgravamento(valor) {
-  const alerta = CONFIG.medidores.colapso?.alertaAgravamento;
-  if (!alerta) return false;
-  return valor >= alerta.min && valor <= alerta.max;
-}
-
-function renderAlertaColapso(valor) {
-  const alerta = CONFIG.medidores.colapso?.alertaAgravamento;
-  if (!alerta) return;
-
-  const container = document.getElementById('medidores-container');
-  if (!container) return;
-
-  let banner = document.getElementById('alerta-colapso');
-  const exibir = isColapsoAlertaAgravamento(valor);
-
-  if (!exibir) {
-    if (banner) banner.hidden = true;
-    return;
-  }
-
-  if (!banner) {
-    banner = document.createElement('aside');
-    banner.id = 'alerta-colapso';
-    banner.className = medidorModo === 'publico'
-      ? 'alerta-colapso alerta-colapso-publico'
-      : 'alerta-colapso';
-    banner.setAttribute('role', 'alert');
-    container.insertAdjacentElement('afterend', banner);
-  }
-
-  banner.hidden = false;
-  banner.innerHTML = `
-    ${icon('alert-triangle', 'alerta-colapso-icone')}
-    <div class="alerta-colapso-texto">
-      <strong class="alerta-colapso-titulo">${alerta.titulo}</strong>
-      <p class="alerta-colapso-mensagem">${alerta.mensagem}</p>
-    </div>
-  `;
-  refreshIcons(banner);
-}
-
 function renderGaugeRing(el, valor, config) {
   const ratio = calcularRatio(valor, config.min, config.max);
   const cor = interpolarCor(ratio, config.inverterCores);
@@ -239,8 +197,6 @@ function atualizarMedidor(id, valorNovo) {
   }
 
   verificarMaximo(id, valorAnterior, valorNovo, config);
-
-  if (id === 'colapso') renderAlertaColapso(valorNovo);
 }
 
 async function resetarMedidor(id) {
@@ -289,9 +245,6 @@ function renderMedidores(modo) {
   }
 
   refreshIcons(container);
-
-  const colapso = state.colapso ?? CONFIG.medidores.colapso.inicial;
-  renderAlertaColapso(colapso);
 }
 
 function sincronizarMedidoresPublico() {
@@ -309,8 +262,6 @@ function sincronizarMedidoresPublico() {
 
     verificarMaximo(config.id, valorAnterior, valorNovo, config);
     valoresAnteriores[config.id] = valorNovo;
-
-    if (config.id === 'colapso') renderAlertaColapso(valorNovo);
   });
 }
 

@@ -107,6 +107,12 @@ function marcarColapsoAplicado(id) {
   storageSet(STORAGE_KEYS.colapsoAplicado, state);
 }
 
+function desmarcarColapsoAplicado(id) {
+  const state = getColapsoAplicado();
+  delete state[id];
+  storageSet(STORAGE_KEYS.colapsoAplicado, state);
+}
+
 function jaAplicouColapso(id) {
   return !!getColapsoAplicado()[id];
 }

@@ -120,7 +120,24 @@ function sincronizarPublicoCartas() {
   ultimoDestaque = destaque;
 }
 
+function renderPainelContencaoPublico() {
+  const el = document.getElementById('painel-contencao-publico');
+  const cfg = CONFIG.telao?.sucessoContencao;
+  if (!el || !cfg) return;
+
+  el.innerHTML = `
+    ${icon('shield-check', 'painel-contencao-icone')}
+    <div class="painel-contencao-texto">
+      <h2 class="painel-contencao-titulo">${cfg.titulo} <span class="painel-contencao-limiar">${cfg.limiar}</span></h2>
+      <p class="painel-contencao-desc">${cfg.texto}</p>
+    </div>
+  `;
+  refreshIcons(el);
+}
+
 async function initPublicoCartas() {
+  renderPainelContencaoPublico();
+
   const btnFechar = document.getElementById('modal-fechar');
   const overlay = document.getElementById('modal-overlay');
   if (btnFechar) btnFechar.addEventListener('click', fecharModalPublico);

@@ -15,12 +15,6 @@ const CONFIG = {
       descricaoEvento: 'Vocês foram derrotados, vítimas do saber fragmentado. A complexidade do mundo real avançou sem barreiras. Que sirva de lição: no mundo real, agir de forma segmentada é apenas outra forma de decretar a nossa própria ruína.',
       tema: 'colapso',
       inverterCores: false,
-      alertaAgravamento: {
-        min: 4,
-        max: 6,
-        titulo: 'Agravamento da crise',
-        mensagem: 'Duas cartas de desastre serão reveladas por turno da Natureza.',
-      },
     },
     cofre: {
       id: 'cofre',
@@ -38,7 +32,13 @@ const CONFIG = {
   limiarPulso: 0.8,
   cartas: {
     desastre: 'data/cartas-desastre.json',
-    procurar: 'data/cartas-procurar.json',
+  },
+  telao: {
+    sucessoContencao: {
+      titulo: 'Sucesso de contenção de desastre',
+      limiar: '≥ 10',
+      texto: 'Debate ou resolução interdisciplinar e cientificamente precisa = Resultado de 2D6 + bônus da tabela de interdisciplinaridade + bônus do personagem quando disponível.',
+    },
   },
   areas: {
     gelo: { label: 'Gelo', cor: '#6b8cff' },
@@ -48,17 +48,12 @@ const CONFIG = {
     cidade: { label: 'Cidade', cor: '#c084fc' },
     global: { label: 'Global', cor: '#94a3b8' },
   },
-  tiposProcurar: {
-    pista: { label: 'Pista', cor: '#fbbf24' },
-    dado: { label: 'Dado Científico', cor: '#38bdf8' },
-    acao: { label: 'Ação Especial', cor: '#f472b6' },
-  },
   regrasMestre: {
     intro: {
       titulo: 'GUIA DO MESTRE: CARTAS DE DESASTRE',
       subtitulo: 'A Entropia Viva — RPG Pedagógico sobre Sustentabilidade e Desastres Ambientais',
       paragrafos: [
-        'Este apêndice contém todas as cartas de desastre que compõem o baralho da Fase da Natureza do jogo (incluindo as Colapso Irreversível), dispostas de acordo com as regiões do mapa (Gelo, Litorânea, Seca, Mata e Cidade), assim como as cartas do baralho de Procurar.',
+        'Este apêndice contém todas as cartas de desastre que compõem o baralho da Fase da Natureza do jogo (incluindo as Colapso Irreversível), dispostas de acordo com as regiões do mapa (Gelo, Litorânea, Seca, Mata e Cidade). Cada carta inclui a narrativa exibida no telão.',
         'Cada carta de desastre foi criada para que a solução apresentada pelos jogadores necessite da combinação de múltiplos eixos de conhecimento científico, não sendo suficiente um único eixo para resolvê-la. Esta exigência representa, na dinâmica do jogo, a concretização da discussão central deste trabalho, que aborda a fragmentação do conhecimento e a urgência de uma abordagem interdisciplinar no ensino das Ciências.',
       ],
     },
@@ -72,12 +67,6 @@ const CONFIG = {
       texto: 'Proposta insatisfatória, ignorada ou não atendida (nível 0) - joga somente 2D6. O desastre se intensifica: colapso não diminui e o cofre não avança',
     },
     irreversivel: 'Antes de deixar qualquer área, uma carta de desastre irreversível é puxada. Não há solução no jogo: +1 no Colapso e a narrativa segue.',
-    cartasPorTurno: [
-      { nivel: '1–3', fase: 'Início da crise', reveladas: 1 },
-      { nivel: '4–5-6', fase: 'Agravamento', reveladas: 2 },
-      { nivel: '7–9', fase: 'Situação crítica', reveladas: 1 },
-      { nivel: '10', fase: 'Colapso', reveladas: 'Fim do jogo' },
-    ],
     interdisciplinaridade: [
       {
         nivel: 0,
