@@ -21,7 +21,7 @@ const CONFIG = {
       nome: 'Proximidade de abertura do cofre',
       icone: 'lock-keyhole',
       min: 0,
-      max: 15,
+      max: 10,
       inicial: 0,
       eventoMaximo: 'As engrenagens de bronze do Cofre finalmente giram, destravando um brilho suave que afasta as sombras da Entropia. Vocês venceram!',
       descricaoEvento: 'Mas olhem para trás: este cofre não se abriu pela força bruta, por códigos matemáticos convencionais ou pela resposta isolada de um único pesquisador. Ele exigiu a soma viva de suas mentes. Nenhuma ciência é uma ilha. Ao tecerem conexões entre a Física, a Química e a Biologia, vocês provaram que a resposta para a crise socioambiental não está em gavetas separadas, mas no diálogo, na reciprocidade e na atitude interdisciplinar.',
@@ -60,11 +60,15 @@ const CONFIG = {
     impactoPadrao: 'Quando a carta de desastre é apresentada, o medidor de Colapso aumenta conforme a carta.',
     sucessoContencao: {
       titulo: 'Sucesso (Soma >= 10): O desastre é evitado e o Medidor de Colapso diminui 1 nível, enquanto o Cofre sobe para o nível que o mestre observou na tabela de interdisciplinaridade.',
-      texto: 'Debate ou resolução interdisciplinar e cientificamente precisa = Resultado de 2D6 + bônus da tabela de interdisciplinaridade + bônus do personagem quando disponível.',
+      texto: 'Debate ou resolução interdisciplinar e cientificamente precisa = Resultado de 2D6 + bônus da tabela de interdisciplinaridade.',
     },
     falhaContencao: {
       titulo: 'Falha na contenção: Uma proposta com uma resolução insatisfatória, que foi ignorada ou apenas parcialmente atendida só usar o + bônus do personagem.',
-      texto: 'Proposta insatisfatória, ignorada ou não atendida (nível 0) - joga somente 2D6. O desastre se intensifica: colapso não diminui e o cofre não avança',
+      texto: 'Proposta insatisfatória, ignorada ou não atendida (nível 0) - joga somente 2D6. O desastre se intensifica: é somado +1 ao colapso e o cofre não avança.',
+    },
+    regraInvestigacao: {
+      titulo: 'Regra de investigação',
+      texto: 'Sucesso >= 7 = 1d6 + bônus do personagem',
     },
     irreversivel: 'Antes de deixar qualquer área, uma carta de desastre irreversível é puxada. Não há solução no jogo: +1 no Colapso e a narrativa segue.',
     interdisciplinaridade: [

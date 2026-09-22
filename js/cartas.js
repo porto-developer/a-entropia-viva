@@ -414,6 +414,10 @@ function renderConsultaMestre() {
           <p>${r.falhaContencao.texto}</p>
         </div>
         <div class="consulta-bloco">
+          <h4>${r.regraInvestigacao.titulo}</h4>
+          <p>${r.regraInvestigacao.texto}</p>
+        </div>
+        <div class="consulta-bloco">
           <h4>Colapso irreversível</h4>
           <p>${r.irreversivel}</p>
         </div>
